@@ -1,7 +1,3 @@
-
-
-
-
 const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 const omdbUrl = "https://www.omdbapi.com/?"
 
@@ -134,49 +130,39 @@ async function GetMovieById(id) {
 
 async function getAndDisplayMovies() {
     //const cmdbMovies = await getCmdbMovies();
+
     const cmdbMovies = await getToplist(10);
+    console.log(cmdbMovies)
     
     const startpage = document.querySelector(".startpage");
 
+    const movieElements = startpage.querySelectorAll('.movie');
     //sorterar filmerna efter betyg
     //cmdbMovies.sort((a, b) => b.cmdbScore - a.cmdbScore);
     
-
-    startpage.innerHTML = '';
 
     //begränsar antalet filmer som visas på startsidan
     //const numMoviesToDisplay = Math.min(10, cmdbMovies.length);
 
     for (let i = 0; i < 10; i++) {
+
         const movie = cmdbMovies.movies[i];
         const movieId = cmdbMovies.movies[i].imdbID;
         
         const omdbMovie = await GetMovieById(movieId);
         
-        const movieClass = i == 0 ? 'bestmovie' : (i >= 1 && i <= 2 ? 'movie2-3' : 'movie4-10');
+        const movieElement = movieElements[i];
+        const titleLink = movieElement.querySelector('h3 a');
+        const poster = movieElement.querySelector('img');
+        const cmdbScore = movieElement.querySelector('.startpagegrade');
+        const summary = movieElement.querySelector('.summary');
         
-       //skapar html för filmerna
-        const movieHTML = `
-            <div class="movie ${movieClass}">
-                <h3><a href="moviePage.html?id=${movieId}">${i + 1}. ${omdbMovie.Title}</a></h3>
-                <img src="${omdbMovie.Poster}" alt="${omdbMovie.Title}" >
-                <p class="startpagegrade">Betyg: ${movie.cmdbScore}</p>
-                <p class="summary">${omdbMovie.Plot}</p>
-                <button class="expand-button">Läs mer...</button>
-                <br> 
-                <label>Sätt ett betyg på filmen:</label> <br><br>
-                <div class="rating">
-                    <ul>
-                        <li><a href="#" class="one">1</a></li>
-                        <li><a href="#" class="two">2</a></li>
-                        <li><a href="#" class="three">3</a></li>
-                        <li><a href="#" class="four">4</a></li>
-                    </ul>
-                </div>
-            </div>
-        `;
-
-        startpage.innerHTML += movieHTML;
+        titleLink.href = `moviePage.html?id=${movieId}`;
+        titleLink.textContent = `${i + 1}. ${omdbMovie.Title}`;
+        poster.src = omdbMovie.Poster;
+        poster.alt = omdbMovie.Title;
+        cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
+        summary.textContent = omdbMovie.Plot;
     }
 
     
