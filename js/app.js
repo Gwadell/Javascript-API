@@ -226,3 +226,61 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     }
 });
+
+
+
+
+const form = document.getElementById("review-form");
+const ratingButtons = document.querySelectorAll('.rating a');
+let score = 0;
+
+ratingButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        score = parseFloat(button.textContent);
+    });
+});
+
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
+    const movieId = urlParams.get("id");
+    const movie = await getCmdbMoviesById(movieId)
+    const submitButton = form.querySelector('input[type="submit"]');
+    
+
+    const reviewer = document.querySelector("#fname").value;
+    const review = document.querySelector("#review").value;
+
+    console.log(movie)
+    for (let i = 0; i < movie.count; i++) {
+        if (movie.reviews[i].reviewer === reviewer) {
+            submitButton.disabled = true;
+            alert("Du har redan skrivit en recension för den här filmen.")
+            break
+        }
+    }
+
+    reviewMovie(movieId, reviewer, score, review);
+    submitButton.disabled = true;
+});
+
+async function reviewMovie(movieId, author, score, review) {
+    const endpoint = "/movies/review";
+    const response = await fetch(cmdbUrl + endpoint, {
+        method: 'POST',
+        body: JSON.stringify({
+            "imdbID": movieId,
+            "reviewer": author,
+            "score": score,
+            "review": review
+        }),
+        headers: {
+            'Content-type': 'application/json; charset = UTF-8'
+        }
+    });
+
+    const data = await response.json();
+    console.log(data);
+}
