@@ -11,6 +11,7 @@ async function getApiKey(){
     const data = await response.json();
     return data.apiKey;
 }
+
 async function displaySearchResults(title) {
     const movie = await getListMoviesByTitle(title); 
     return movie.Search || []; 
@@ -72,7 +73,9 @@ searchButton.addEventListener("click", function (event) {
 // För att visa sökresultat på söksidan
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // hämtar sökordet från urlen
+    console.log(urlParams);
     const text = urlParams.get("search");
+    console.log(text);
 
     if (text) {
         const movies = await displaySearchResults(text); 
@@ -103,6 +106,13 @@ async function getCmdbMovies() {
     return data;
 }
 
+async function getCmdbMoviesById(id) {
+    const endpoint = "/movies/" + id;
+    const response = await fetch(cmdbUrl + endpoint);
+    const data = await response.json();
+    return data;
+}
+
 //Hämta topplistan 
 async function getToplist(limit) {
     const endpoint = "/toplists?sort=desc&limit=" +limit +"&page=1&countlimit=2";
@@ -125,7 +135,7 @@ async function GetMovieById(id) {
 async function getAndDisplayMovies() {
     //const cmdbMovies = await getCmdbMovies();
     const cmdbMovies = await getToplist(10);
-
+    
     const startpage = document.querySelector(".startpage");
 
     //sorterar filmerna efter betyg
@@ -148,7 +158,7 @@ async function getAndDisplayMovies() {
        //skapar html för filmerna
         const movieHTML = `
             <div class="movie ${movieClass}">
-                <h3><a href="moviePage.html">${i + 1}. ${omdbMovie.Title}</a></h3>
+                <h3><a href="moviePage.html?id=${movieId}">${i + 1}. ${omdbMovie.Title}</a></h3>
                 <img src="${omdbMovie.Poster}" alt="${omdbMovie.Title}" >
                 <p class="startpagegrade">Betyg: ${movie.cmdbScore}</p>
                 <p class="summary">${omdbMovie.Plot}</p>
@@ -193,3 +203,40 @@ document.addEventListener("click", function (event) {
 });
 
 
+document.addEventListener("DOMContentLoaded", async function () { 
+    const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
+    const movieId = urlParams.get("id");
+
+    if (movieId) {
+        const movie = await GetMovieById(movieId);
+        const cmdbMovie = await getCmdbMoviesById(movieId);
+        const moviePage = document.querySelector(".movie-details");
+
+        // Hitta de befintliga elementen inom "movie-details"
+        const image = moviePage.querySelector('.image img');
+        const storyText = moviePage.querySelector('.story p');
+        const gradeText = moviePage.querySelector('.grade p');
+        const reviewList = moviePage.querySelector('.listofreview');
+        
+        // Uppdatera innehållet i elementen med filmens data
+        image.src = movie.Poster;
+        image.alt = "Filmposter";
+        storyText.textContent = movie.Plot;
+        gradeText.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+
+        // Ta bort befintliga recensioner
+        while (reviewList.firstChild) {
+            reviewList.removeChild(reviewList.firstChild);
+        }
+
+        // Lägg till de nya recensionerna
+        for (let i = 0; i < 3; i++) {
+            if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
+                const reviewItem = document.createElement("li");
+                reviewItem.textContent = `Recension ${i + 1}: ${cmdbMovie.reviews[i].review}`;
+                reviewList.appendChild(reviewItem);
+            }
+        }
+
+    }
+});
