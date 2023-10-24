@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detaljsida</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
 </head>
 <body>
     <nav>
@@ -13,9 +14,9 @@
             <li><a href="about-us.html" class="dennasida">Om oss</a></li>
         </ul>
         <div class="searchbar" >
-            <form action="searchpage.html">
-                <input type="text" placeholder=" Sök efter film..." name="search">  
-                <button type="submit">Sök</button>
+            <form method="get" action="searchpage.html">
+                <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
+                <button type="submit" class="searchbutton">Sök</button>
             </form> 
         </div>
     </nav>
