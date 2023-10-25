@@ -207,55 +207,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             reviewList.removeChild(reviewList.firstChild);
         }
 
+        let rating = 1;
+        console.log(cmdbMovie)
         // Lägg till de nya recensionerna
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < cmdbMovie.count; i++) {
             if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
                 const reviewItem = document.createElement("li");
-                reviewItem.textContent = `Recension ${i + 1}: ${cmdbMovie.reviews[i].review}`;
+                reviewItem.textContent = `Recension ${rating}: ${cmdbMovie.reviews[i].review}`;
                 reviewList.appendChild(reviewItem);
+                rating++;
             }
+            
         }
 
     }
 });
-
-//sätta betyg på film
-async function setGrade(id, grade) {
-    console.log(id);
-    console.log(grade);
-    const endpoint = "/movies/rate/" + id + "/" + grade;
-    const response = await fetch(cmdbUrl + endpoint, {
-        method: 'PUT',
-        body: JSON.stringify({ 
-            imdbID: id,
-            score: grade 
-        }),
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-        }, 
-    });
-    const data = await response.json();
-    console.log(data);
-}
-
-// array med betygsknappar
-const ratingButtons = [
-    { grade: 1, className: "one" },
-    { grade: 2, className: "two" },
-    { grade: 3, className: "three" },
-    { grade: 4, className: "four" }
-];
-
-document.addEventListener("click", async function (event) {
-    const targetClass = event.target.classList[0];
-    const ratingButton = ratingButtons.find(button => button.className === targetClass);
-
-    if (ratingButton) {
-        const movieElement = event.target.closest(".movie");
-        const movieId = movieElement.dataset.movieId;
-        const grade = ratingButton.grade;
-        const response = await setGrade(movieId, grade);
-        console.log(response);
-    }
-});
-

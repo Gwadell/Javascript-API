@@ -13,7 +13,7 @@
             <li><a href="index.html">Hem</a></li>
             <li><a href="about-us.html" class="dennasida">Om oss</a></li>
         </ul>
-        <div class="searchbar" >
+        <div class="searchbar">
             <form method="get" action="searchpage.html">
                 <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
                 <button type="submit" class="searchbutton">Sök</button>
@@ -44,15 +44,11 @@
             </div>
             <div class="writerreview">
                 <div class="write">
-                    <form action="/action_page.php">
+                    <form action="/action_page.php" method="post" id="review-form">
                         <h3>Skriv en recension</h3>
 
-                        <label for="fname">Förnamn:</label> <br>
-                        <input type="text" id="fname" name="fname" placeholder="Ditt förnamn...">
-                        <br> <br>
-
-                        <label for="lname">Efternamn:</label> <br>
-                        <input type="text" id="lname" name="lname" placeholder="Ditt efternamn...">
+                        <label for="fname">Namn:</label> <br>
+                        <input type="text" id="fname" name="fname" placeholder="Ditt Namn..." required>
                         <br> <br>
 
                         <label for="date">Datum:</label> <br>
@@ -77,12 +73,12 @@
                                 </ul>
                             </div>
                         <br> 
-
                         <label for="review">Recension:</label>
                         <br>
-                        <textarea id="review" name="review" placeholder="Skriv din recension här..." ></textarea>
-                        <input type="submit" value="submit">
+                        <textarea id="review" name="review" placeholder="Skriv din recension här..." required></textarea>
+                        <input type="submit" value="Skicka recension" id="submit-button">
                     </form>
+                    <div id="confirmation-message" class="hidden">Tack för din recension!</div>
                 </div>  
             </div>
             <div class="trailer">

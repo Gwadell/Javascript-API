@@ -342,7 +342,6 @@ footer {
     margin: 5px;
 }
 
-
 .writerreview {
    background-color: #e5e6e4; 
    color: #000;
@@ -352,7 +351,23 @@ footer {
     border: 2px solid  #000000;
 }
 
-  
+#confirmation-message {
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+/* Stil för dold klass */
+.hidden {
+    display: none;
+}
 
 
 .writerreview h3, .writerreview label {
