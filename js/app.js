@@ -69,9 +69,9 @@ searchButton.addEventListener("click", function (event) {
 // För att visa sökresultat på söksidan
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // hämtar sökordet från urlen
-    console.log(urlParams);
+   
     const text = urlParams.get("search");
-    console.log(text);
+    
 
     if (text) {
         const movies = await displaySearchResults(text); 
@@ -129,20 +129,11 @@ async function GetMovieById(id) {
 
 
 async function getAndDisplayMovies() {
-    //const cmdbMovies = await getCmdbMovies();
-
     const cmdbMovies = await getToplist(10);
-    console.log(cmdbMovies)
     
     const startpage = document.querySelector(".startpage");
 
     const movieElements = startpage.querySelectorAll('.movie');
-    //sorterar filmerna efter betyg
-    //cmdbMovies.sort((a, b) => b.cmdbScore - a.cmdbScore);
-    
-
-    //begränsar antalet filmer som visas på startsidan
-    //const numMoviesToDisplay = Math.min(10, cmdbMovies.length);
 
     for (let i = 0; i < 10; i++) {
 
@@ -152,6 +143,9 @@ async function getAndDisplayMovies() {
         const omdbMovie = await GetMovieById(movieId);
         
         const movieElement = movieElements[i];
+
+        movieElement.dataset.movieId = movieId; // Set the movie ID as a data attribute on the movie element
+
         const titleLink = movieElement.querySelector('h3 a');
         const poster = movieElement.querySelector('img');
         const cmdbScore = movieElement.querySelector('.startpagegrade');
@@ -164,8 +158,6 @@ async function getAndDisplayMovies() {
         cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
         summary.textContent = omdbMovie.Plot;
     }
-
-    
 }
 
 
