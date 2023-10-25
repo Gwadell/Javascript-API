@@ -248,12 +248,12 @@ form.addEventListener("submit", async function (e) {
     const movieId = urlParams.get("id");
     const movie = await getCmdbMoviesById(movieId)
     const submitButton = form.querySelector('input[type="submit"]');
+    const confirmationMessage = document.querySelector("#confirmation-message");
     
 
     const reviewer = document.querySelector("#fname").value;
     const review = document.querySelector("#review").value;
 
-    console.log(movie)
     for (let i = 0; i < movie.count; i++) {
         if (movie.reviews[i].reviewer === reviewer) {
             submitButton.disabled = true;
@@ -264,6 +264,12 @@ form.addEventListener("submit", async function (e) {
 
     reviewMovie(movieId, reviewer, score, review);
     submitButton.disabled = true;
+
+    confirmationMessage.style.display = "block";
+
+    setTimeout(function () {
+        confirmationMessage.style.display = "none";
+    }, 3000);
 });
 
 async function reviewMovie(movieId, author, score, review) {
