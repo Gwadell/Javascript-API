@@ -215,13 +215,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             reviewList.removeChild(reviewList.firstChild);
         }
 
+        let rating = 1;
+        console.log(cmdbMovie)
         // Lägg till de nya recensionerna
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < cmdbMovie.count; i++) {
             if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
                 const reviewItem = document.createElement("li");
-                reviewItem.textContent = `Recension ${i + 1}: ${cmdbMovie.reviews[i].review}`;
+                reviewItem.textContent = `Recension ${rating}: ${cmdbMovie.reviews[i].review}`;
                 reviewList.appendChild(reviewItem);
+                rating++;
             }
+            
         }
 
     }
