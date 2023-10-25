@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         let rating = 1;
-        console.log(cmdbMovie)
+        const btnNext = document.querySelector(".btn-next")
         // Lägg till de nya recensionerna
         for (let i = 0; i < cmdbMovie.count; i++) {
             if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
@@ -225,9 +225,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 reviewList.appendChild(reviewItem);
                 rating++;
             }
-            
         }
-
     }
 });
 
@@ -235,10 +233,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 const form = document.getElementById("review-form");
-const ratingButtons = document.querySelectorAll('.rating a');
+const ratingButtonsForm = document.querySelectorAll('.rating a');
 let score = 0;
 
-ratingButtons.forEach((button) => {
+ratingButtonsForm.forEach((button) => {
     button.addEventListener('click', (event) => {
         event.preventDefault();
         score = parseFloat(button.textContent);
@@ -294,3 +292,43 @@ async function reviewMovie(movieId, author, score, review) {
     const data = await response.json();
     console.log(data);
 }
+
+
+async function setGrade(id, grade) {
+    console.log(id);
+    console.log(grade);
+    const endpoint = "/movies/rate/" + id + "/" + grade;
+    const response = await fetch(cmdbUrl + endpoint, {
+        method: 'PUT',
+        body: JSON.stringify({ 
+            imdbID: id,
+            score: grade 
+        }),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }, 
+    });
+    const data = await response.json();
+    console.log(data);
+}
+
+// array med betygsknappar
+const ratingButtons = [
+    { grade: 1, className: "one" },
+    { grade: 2, className: "two" },
+    { grade: 3, className: "three" },
+    { grade: 4, className: "four" }
+];
+
+document.addEventListener("click", async function (event) {
+    const targetClass = event.target.classList[0];
+    const ratingButton = ratingButtons.find(button => button.className === targetClass);
+
+    if (ratingButton) {
+        const movieElement = event.target.closest(".movie");
+        const movieId = movieElement.dataset.movieId;
+        const grade = ratingButton.grade;
+        const response = await setGrade(movieId, grade);
+        console.log(response);
+    }
+});
