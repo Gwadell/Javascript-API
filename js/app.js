@@ -69,9 +69,9 @@ searchButton.addEventListener("click", function (event) {
 // För att visa sökresultat på söksidan
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // hämtar sökordet från urlen
-    console.log(urlParams);
+   
     const text = urlParams.get("search");
-    console.log(text);
+    
 
     if (text) {
         const movies = await displaySearchResults(text); 
@@ -129,20 +129,11 @@ async function GetMovieById(id) {
 
 
 async function getAndDisplayMovies() {
-    //const cmdbMovies = await getCmdbMovies();
-
     const cmdbMovies = await getToplist(10);
-    console.log(cmdbMovies)
     
     const startpage = document.querySelector(".startpage");
 
     const movieElements = startpage.querySelectorAll('.movie');
-    //sorterar filmerna efter betyg
-    //cmdbMovies.sort((a, b) => b.cmdbScore - a.cmdbScore);
-    
-
-    //begränsar antalet filmer som visas på startsidan
-    //const numMoviesToDisplay = Math.min(10, cmdbMovies.length);
 
     for (let i = 0; i < 10; i++) {
 
@@ -152,6 +143,9 @@ async function getAndDisplayMovies() {
         const omdbMovie = await GetMovieById(movieId);
         
         const movieElement = movieElements[i];
+
+        movieElement.dataset.movieId = movieId; // Set the movie ID as a data attribute on the movie element
+
         const titleLink = movieElement.querySelector('h3 a');
         const poster = movieElement.querySelector('img');
         const cmdbScore = movieElement.querySelector('.startpagegrade');
@@ -164,8 +158,6 @@ async function getAndDisplayMovies() {
         cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
         summary.textContent = omdbMovie.Plot;
     }
-
-    
 }
 
 
@@ -216,7 +208,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         // Lägg till de nya recensionerna
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 100; i++) {
             if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
                 const reviewItem = document.createElement("li");
                 reviewItem.textContent = `Recension ${i + 1}: ${cmdbMovie.reviews[i].review}`;
@@ -226,3 +218,44 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     }
 });
+
+//sätta betyg på film
+async function setGrade(id, grade) {
+    console.log(id);
+    console.log(grade);
+    const endpoint = "/movies/rate/" + id + "/" + grade;
+    const response = await fetch(cmdbUrl + endpoint, {
+        method: 'PUT',
+        body: JSON.stringify({ 
+            imdbID: id,
+            score: grade 
+        }),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }, 
+    });
+    const data = await response.json();
+    console.log(data);
+}
+
+// array med betygsknappar
+const ratingButtons = [
+    { grade: 1, className: "one" },
+    { grade: 2, className: "two" },
+    { grade: 3, className: "three" },
+    { grade: 4, className: "four" }
+];
+
+document.addEventListener("click", async function (event) {
+    const targetClass = event.target.classList[0];
+    const ratingButton = ratingButtons.find(button => button.className === targetClass);
+
+    if (ratingButton) {
+        const movieElement = event.target.closest(".movie");
+        const movieId = movieElement.dataset.movieId;
+        const grade = ratingButton.grade;
+        const response = await setGrade(movieId, grade);
+        console.log(response);
+    }
+});
+
