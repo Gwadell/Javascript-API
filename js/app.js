@@ -180,7 +180,6 @@ document.addEventListener("click", function (event) {
     }
 });
 
-
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
     const movieId = urlParams.get("id");
@@ -194,7 +193,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const image = moviePage.querySelector('.image img');
         const storyText = moviePage.querySelector('.story p');
         const gradeText = moviePage.querySelector('.grade p');
-        const reviewList = moviePage.querySelector('.listofreview');
+        const reviewList = document.querySelector('.listofreview');
         
         // Uppdatera innehållet i elementen med filmens data
         image.src = movie.Poster;
@@ -208,20 +207,63 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
 
         let rating = 1;
-        const btnNext = document.querySelector(".btn-next")
-        // Lägg till de nya recensionerna
+        const reviewsPerPage = 5;
+        let textReviews = [];
+        let reviewIndex = 0;
+        let currentPage = 1;
+
         for (let i = 0; i < cmdbMovie.count; i++) {
             if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
-                const reviewItem = document.createElement("li");
-                reviewItem.textContent = `Recension ${rating}: ${cmdbMovie.reviews[i].review}`;
-                reviewList.appendChild(reviewItem);
-                rating++;
+                textReviews.push(cmdbMovie.reviews[i]);
             }
         }
+
+        function addNextReview() {
+            for (let i = 0; i < textReviews.length; i++) {
+                if (i < reviewsPerPage * currentPage && i >= reviewsPerPage * (currentPage - 1)) {
+                    const reviewItem = document.createElement("li");
+                    reviewItem.textContent = `Recension ${rating}: ${textReviews[i].review}`;
+                    reviewList.appendChild(reviewItem);
+                    rating++;
+                }
+            }
+        }
+
+        addNextReview();
+
+        const btnNext = document.querySelector(".btn-next");
+        btnNext.addEventListener("click", function (event) {
+            event.preventDefault();
+            if ((rating - 1) % 5 === 0) {
+                // Ta bort befintliga recensioner
+                while (reviewList.firstChild) {
+                    reviewList.removeChild(reviewList.firstChild);
+                }
+                currentPage++;
+                addNextReview();
+            }
+
+            
+        });
+
+        const btnPrev = document.querySelector(".btn-prev");
+        btnPrev.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (currentPage > 1) {
+                // Ta bort befintliga recensioner
+                while (reviewList.firstChild) {
+                    reviewList.removeChild(reviewList.firstChild);
+                }
+                
+                const test = (currentPage * reviewsPerPage) - (rating - 1)
+                rating = rating - 10 + test;
+                currentPage--;
+                addNextReview();
+            }
+        });
     }
 });
-
-
 
 
 const form = document.getElementById("review-form");
@@ -235,7 +277,7 @@ ratingButtonsForm.forEach((button) => {
     });
 });
 
-form.addEventListener("submit", async function (e) {
+document.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
