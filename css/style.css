@@ -235,6 +235,13 @@ main {
     background-color: darkgreen;
 }
 
+a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: #ccc;
+}
+
 .listmovie{
     display: flex;
     flex-direction: column;

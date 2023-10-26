@@ -1,3 +1,6 @@
+
+
+
 const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 const omdbUrl = "https://www.omdbapi.com/?"
 
@@ -6,7 +9,8 @@ async function getApiKey(){
     const response = await fetch(cmdbUrl + endpioint);
     const data = await response.json();
     return data.apiKey;
-}
+} 
+
 
 async function displaySearchResults(title) {
     const movie = await getListMoviesByTitle(title); 
@@ -344,25 +348,50 @@ async function setGrade(id, grade) {
     });
     const data = await response.json();
     console.log(data);
+    console.log(ratingButtons);
+    
+    
 }
 
 // array med betygsknappar
 const ratingButtons = [
-    { grade: 1, className: "one" },
-    { grade: 2, className: "two" },
-    { grade: 3, className: "three" },
-    { grade: 4, className: "four" }
+    { grade: 1, className: "one", element: document.querySelector('.one') },
+    { grade: 2, className: "two", element: document.querySelector('.two') },
+    { grade: 3, className: "three", element: document.querySelector('.three') },
+    { grade: 4, className: "four", element: document.querySelector('.four') }
 ];
+
+console.log(ratingButtons);
+
 
 document.addEventListener("click", async function (event) {
     const targetClass = event.target.classList[0];
     const ratingButton = ratingButtons.find(button => button.className === targetClass);
 
-    if (ratingButton) {
+    if (ratingButton && !ratingButton.element.disabled) {
         const movieElement = event.target.closest(".movie");
+        console.log(movieElement);
         const movieId = movieElement.dataset.movieId;
         const grade = ratingButton.grade;
-        const response = await setGrade(movieId, grade);
-        console.log(response);
+        
+        //hämtat titeln på filmen
+        const movieTitle = movieElement.querySelector('h3 a').textContent;
+
+        
+        const confirmMessage = `Är du säker att du vill ge filmen ${movieTitle} betyg ${grade}?`;
+        const userConfirmed = confirm(confirmMessage); 
+        
+        if (userConfirmed) {
+            const response = await setGrade(movieId, grade);
+            
+            //lägger till klassen disabled på betygsknapparna
+            const movieButton = movieElement.querySelectorAll(".rating a");
+            
+                movieButton.forEach((button) => {
+            
+                    button.classList.add('disabled');
+                });
+                
+        }
     }
 });
