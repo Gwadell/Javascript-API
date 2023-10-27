@@ -168,7 +168,7 @@ async function getAndDisplayMovies(numberofMovies) {
 
 // Method to create three new movies
 let numberOfCreatedMovies = 0;
-async function createANewMovie () {
+function createANewMovie () {
     const startpage = document.querySelector(".startpage");
     const latestReview = startpage.querySelector(".latest-review");
     for (let i = 0; i < 3; i++) {
@@ -179,8 +179,7 @@ async function createANewMovie () {
 }
 
 const moreBtn = document.querySelector(".more-btn")
-document.addEventListener("click", function (event) {
-    console.log("monkey")
+moreBtn.addEventListener("click", function () {
     createANewMovie();
     getAndDisplayMovies(10 + numberOfCreatedMovies);
 })
