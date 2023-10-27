@@ -8,18 +8,23 @@
     <script src="js/app.js" defer></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html">Hem</a></li>
-            <li><a href="about-us.html">Om oss</a></li>
-        </ul>
-        <div class="searchbar">
-            <form method="get" action="searchpage.html">
-                <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
-                <button type="submit" class="searchbutton">Sök</button>
-            </form> 
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="index.html">Hem</a></li>
+                <li><a href="about-us.html">Om oss</a></li>
+            </ul>
+            <div class="searchbar" >
+                <form method="get" action="searchpage.html">
+                    <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
+                    <button type="submit" class="searchbutton">Sök</button>
+                </form> 
+            </div>
+        </nav>
+        <div class="popup ">
+            <div class="movie-results"></div>
         </div>
-    </nav>
+    </div>
     <header id="movieheader">
         <h2>Forrestgump</h2>
     </header>

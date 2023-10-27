@@ -114,8 +114,8 @@ button[type="submit"] {
     top: 100%; 
     left: 2.5%;
     max-height: 50vh; 
-    overflow: auto;
-    
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .nav-container {
@@ -454,6 +454,12 @@ footer {
     border-radius: 5px;
 }
 
+a.one.enable, a.two.enable, a.three.enable, a.four.enable {
+    cursor: not-allowed;
+    pointer-events: none;
+    border: 2px solid #000;
+}
+
 /* Stil för dold klass */
 .hidden {
     display: none;
@@ -620,6 +626,7 @@ main {
     background-color: #222;
     border:none;
     color:#ccc;
+    border-bottom: 2px solid #e5e6e4;
 }
 
 
