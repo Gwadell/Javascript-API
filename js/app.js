@@ -188,10 +188,14 @@ function createANewMovie () {
 }
 
 const moreBtn = document.querySelector(".more-btn")
-moreBtn.addEventListener("click", function () {
-    createANewMovie();
-    getAndDisplayMovies(10 + numberOfCreatedMovies);
-})
+if (moreBtn) {
+    moreBtn.addEventListener("click", function (event) {
+    
+        createANewMovie();
+        getAndDisplayMovies(10 + numberOfCreatedMovies);
+    });
+}
+
 
 
 getAndDisplayMovies(10);
@@ -223,6 +227,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const movie = await getMovieById(movieId);
         const cmdbMovie = await getCmdbMoviesById(movieId);
         const moviePage = document.querySelector(".movie-details");
+        console.log(movie)
+        console.log(cmdbMovie)
 
         // Hitta de befintliga elementen inom "movie-details"
         const image = moviePage.querySelector('.image img');
