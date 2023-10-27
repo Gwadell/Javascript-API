@@ -175,6 +175,30 @@ async function getAndDisplayMovies(numberofMovies) {
     }
 }
 
+let gradedMovieId;
+let movieButton;
+function toggleRatingBtns () {
+    const allMovieElements = document.querySelectorAll(".movie");
+    for (let i = 0; i < allMovieElements.length; i++) {
+        if(allMovieElements[i].dataset.movieId === gradedMovieId) {
+            const ratingButtons = allMovieElements[i].querySelectorAll(".rating a")
+            ratingButtons.forEach((button) => {
+                button.classList.add('disabled');
+            });
+            movieButton.forEach((button) => {
+                button.classList.remove('disabled');
+            });
+
+        }
+    }
+}
+
+getAndDisplayMovies(10);
+const displayMovieInterval = setInterval(() => {
+    getAndDisplayMovies(10 + numberOfCreatedMovies);
+    toggleRatingBtns();
+}, 3000);
+
 // Method to create three new movies
 let numberOfCreatedMovies = 0;
 function createANewMovie () {
@@ -198,7 +222,7 @@ if (moreBtn) {
 
 
 
-getAndDisplayMovies(10);
+
 
 //läs mer kanpp 
 document.addEventListener("click", function (event) { 
@@ -380,8 +404,6 @@ async function reviewMovie(movieId, author, score, review) {
 
 
 async function setGrade(id, grade) {
-    console.log(id);
-    console.log(grade);
     const endpoint = "/movies/rate/" + id + "/" + grade;
     const response = await fetch(cmdbUrl + endpoint, {
         method: 'PUT',
@@ -394,9 +416,6 @@ async function setGrade(id, grade) {
         }, 
     });
     const data = await response.json();
-    console.log(data);
-    console.log(ratingButtons);
-    
     
 }
 
@@ -408,7 +427,6 @@ const ratingButtons = [
     { grade: 4, className: "four", element: document.querySelector('.four') }
 ];
 
-console.log(ratingButtons);
 
 
 document.addEventListener("click", async function (event) {
@@ -417,13 +435,11 @@ document.addEventListener("click", async function (event) {
 
     if (ratingButton && !ratingButton.element.disabled) {
         const movieElement = event.target.closest(".movie");
-        console.log(movieElement);
         const movieId = movieElement.dataset.movieId;
         const grade = ratingButton.grade;
         
         //hämtat titeln på filmen
         const movieTitle = movieElement.querySelector('h3 a').textContent;
-
         
         const confirmMessage = `Är du säker att du vill ge filmen ${movieTitle} betyg ${grade}?`;
         const userConfirmed = confirm(confirmMessage); 
@@ -432,13 +448,14 @@ document.addEventListener("click", async function (event) {
             const response = await setGrade(movieId, grade);
             
             //lägger till klassen disabled på betygsknapparna
-            const movieButton = movieElement.querySelectorAll(".rating a");
+            movieButton = movieElement.querySelectorAll(".rating a");
             
                 movieButton.forEach((button) => {
                     button.classList.add('disabled');
                 });
                 
         }
+        gradedMovieId = movieId;
     }
 });
 
@@ -461,4 +478,7 @@ async function displayLatestReview () {
     reviewText.textContent = `Recension: ${latestReview.review}`;
 }
 displayLatestReview();
+
+const latestReviewInterval = setInterval(displayLatestReview, 3000);
+
 
