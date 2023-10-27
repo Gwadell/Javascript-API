@@ -1,6 +1,3 @@
-
-
-
 const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 const omdbUrl = "https://www.omdbapi.com/?"
 
@@ -130,30 +127,35 @@ async function getToplist(limit) {
     return data;
 }
 
-async function GetMovieById(id) {
+async function getMovieById(id) {
     const apiKey = await getApiKey();
     const endpoint = "i=" + id + "&apikey=";
     const response = await fetch(omdbUrl + endpoint + apiKey);
     const data = await response.json();
-    
+    return data;
+}
+
+async function getLatestReview () {
+    const endpoint = "/movies/latest";
+    const response = await fetch(cmdbUrl + endpoint);
+    const data = await response.json();
     return data;
 }
 
 
-
-async function getAndDisplayMovies() {
-    const cmdbMovies = await getToplist(10);
+// Method to get and display movies on the startpage
+async function getAndDisplayMovies(numberofMovies) {
+    const cmdbMovies = await getToplist(numberofMovies);
     
     const startpage = document.querySelector(".startpage");
 
     const movieElements = startpage.querySelectorAll('.movie');
 
-    for (let i = 0; i < 10; i++) {
-
+    for (let i = 0; i < numberofMovies; i++) {
         const movie = cmdbMovies.movies[i];
         const movieId = cmdbMovies.movies[i].imdbID;
         
-        const omdbMovie = await GetMovieById(movieId);
+        const omdbMovie = await getMovieById(movieId);
         
         const movieElement = movieElements[i];
 
@@ -173,8 +175,26 @@ async function getAndDisplayMovies() {
     }
 }
 
+// Method to create three new movies
+let numberOfCreatedMovies = 0;
+function createANewMovie () {
+    const startpage = document.querySelector(".startpage");
+    const latestReview = startpage.querySelector(".latest-review");
+    for (let i = 0; i < 3; i++) {
+        const newMovie = startpage.querySelector(".movie4-10").cloneNode(true);
+        startpage.insertBefore(newMovie, latestReview);
+        numberOfCreatedMovies++;
+    }
+}
 
-getAndDisplayMovies();
+const moreBtn = document.querySelector(".more-btn")
+moreBtn.addEventListener("click", function () {
+    createANewMovie();
+    getAndDisplayMovies(10 + numberOfCreatedMovies);
+})
+
+
+getAndDisplayMovies(10);
 
 //läs mer kanpp 
 document.addEventListener("click", function (event) { 
@@ -200,7 +220,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const movieId = urlParams.get("id");
     
     if (movieId) {
-        const movie = await GetMovieById(movieId);
+        const movie = await getMovieById(movieId);
         const cmdbMovie = await getCmdbMoviesById(movieId);
         const moviePage = document.querySelector(".movie-details");
 
@@ -230,7 +250,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         let rating = 1;
         const reviewsPerPage = 5;
         let textReviews = [];
-        let reviewIndex = 0;
         let currentPage = 1;
 
         // Check if cmdbMovie exists and has reviews
@@ -410,10 +429,30 @@ document.addEventListener("click", async function (event) {
             const movieButton = movieElement.querySelectorAll(".rating a");
             
                 movieButton.forEach((button) => {
-            
                     button.classList.add('disabled');
                 });
                 
         }
     }
 });
+
+
+//Metod för att visa den senast skrivna recensionen
+async function displayLatestReview () {
+    const latestReview = await getLatestReview();
+    const movie = await getMovieById(latestReview.imdbID);
+    const reviewInfo = document.querySelector(".latest-review");
+    const title = reviewInfo.querySelector("#title")
+    const score = reviewInfo.querySelector("#score")
+    const reviewer = reviewInfo.querySelector("#reviewer");
+    const date = reviewInfo.querySelector("#date");
+    const reviewText = reviewInfo.querySelector("#review-text");
+
+    title.textContent = `Titel: ${movie.Title}`;
+    score.textContent = `Betyg: ${latestReview.score}`;
+    reviewer.textContent = `Recensent: ${latestReview.reviewer}`;
+    date.textContent = `Datum: ${latestReview.date}`;
+    reviewText.textContent = `Recension: ${latestReview.review}`;
+}
+displayLatestReview();
+
