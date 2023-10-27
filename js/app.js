@@ -29,29 +29,36 @@ async function getListMoviesByTitle(title) {
 
 const searchtext = document.querySelector(".searchtext"); 
 const searchButton = document.querySelector(".searchbutton"); 
-const movieResults = document.getElementById("movieResults"); 
+const movieResults = document.querySelector(".movie-results"); 
 
 //Visar filmer samtidigt som jag skriver i sökfältet
 searchtext.addEventListener("input", async function () { 
     const text = searchtext.value; 
 
-    if (text.trim() !== '') { // så fort det står något i sökfältet så hämtas filmer från api
-        const movies = await displaySearchResults(text); 
 
-        movieResults.innerHTML = '';
+    if (text.trim() !== '') { // så fort det står något i sökfältet så hämtas filmer från api
+
+        document.querySelector('.popup').style.display = 'block';
+
+        const movies = await displaySearchResults(text); 
+        console.log(movies);
+
+         movieResults.innerHTML = '';
         
         movies.forEach(movie => {
             const movieDiv = document.createElement("div"); 
             movieDiv.classList.add("movie"); 
-            movieDiv.innerHTML = `  
-                <h2>${movie.Title}</h2>
-                <img src="${movie.Poster}" alt="${movie.Title} poster">
-                <p>${movie.Year}</p>
-                <p>${movie.Type}</p>
+
+            movieDiv.innerHTML = `
+                <img src="${movie.Poster}" alt="${movie.Title} poster">  
+                <h2> <a href=moviePage.html?id=${movie.imdbID}> ${movie.Title}<a/></h2>
             `;
-            movieResults.appendChild(movieDiv);
+            movieResults.appendChild(movieDiv); 
         });
-    }
+        }
+        if (text.trim() === '') { 
+            document.querySelector('.popup').style.display = 'none';
+        }
 });
 
 
@@ -88,10 +95,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             const movieDiv = document.createElement("div"); 
             movieDiv.classList.add("movie"); 
             movieDiv.innerHTML = `  
-                <h2>${movie.Title}</h2>
                 <img src="${movie.Poster}" alt="${movie.Title} bild">
-                <p>${movie.Year}</p>
-                <p>${movie.Type}</p>
+                <h2> <a href=moviePage.html?id=${movie.imdbID}> ${movie.Title}<a/></h2>
             `;
             movieResults.appendChild(movieDiv);
         });
@@ -107,10 +112,14 @@ async function getCmdbMovies() {
 }
 
 async function getCmdbMoviesById(id) {
-    const endpoint = "/movies/" + id;
-    const response = await fetch(cmdbUrl + endpoint);
-    const data = await response.json();
-    return data;
+    try {
+        const endpoint = "/movies/" + id;
+        const response = await fetch(cmdbUrl + endpoint);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 //Hämta topplistan 
@@ -184,10 +193,12 @@ document.addEventListener("click", function (event) {
     }
 });
 
+
+//detaljsidan
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
     const movieId = urlParams.get("id");
-
+    
     if (movieId) {
         const movie = await GetMovieById(movieId);
         const cmdbMovie = await getCmdbMoviesById(movieId);
@@ -203,7 +214,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         image.src = movie.Poster;
         image.alt = "Filmposter";
         storyText.textContent = movie.Plot;
-        gradeText.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+
+        // Check if cmdbMovie exists and has a cmdbScore
+        if (cmdbMovie && cmdbMovie.cmdbScore) {
+            gradeText.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+        } else {
+            gradeText.textContent = "Filmen finns inte i Cmdb.Skriv en rececion eller sätt ett betyg för att lägga till den.";
+        }
 
         // Ta bort befintliga recensioner
         while (reviewList.firstChild) {
@@ -216,9 +233,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         let reviewIndex = 0;
         let currentPage = 1;
 
-        for (let i = 0; i < cmdbMovie.count; i++) {
-            if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
-                textReviews.push(cmdbMovie.reviews[i]);
+        // Check if cmdbMovie exists and has reviews
+        if (cmdbMovie && cmdbMovie.reviews) {
+            for (let i = 0; i < cmdbMovie.reviews.length; i++) {
+                if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
+                    textReviews.push(cmdbMovie.reviews[i]);
+                }
             }
         }
 
@@ -268,6 +288,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 });
+
+
 
 
 const form = document.getElementById("review-form");
