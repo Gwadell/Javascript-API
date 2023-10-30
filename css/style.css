@@ -375,7 +375,6 @@ footer {
 .movie-details  {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-around;
     background-color: #f0f0f0;
     
@@ -389,7 +388,6 @@ footer {
 }
 
 .story{
-    width: 90%;
     max-height: auto;
     padding: 5px;
     margin: 5px;
@@ -398,24 +396,117 @@ footer {
     color: #000;
 }
 
-.grade{
-    width: 40%;
+
+
+
+
+/*  Rating-stats  */
+
+.rating-stats {
+    display: flex;
+    flex-direction: column;
+    width: 22%;
+    margin: 20px auto 20px 20px;
+    align-items: start;
+
+}
+
+.grade {
+    width: 50% !important;
     max-height: 100px;
     border: 2px solid  #000000;
     padding: 10px;
-    margin:5px;
     background-color: green;
     text-align: center;
 }
 
+/* Rating-scale - Section */
+
+.rating-no1 {
+    margin: 10px 0 5px 135px;
+}
+
+.rating-scale {
+    display: flex;
+    width: 230px;
+    height: 24px;
+    margin-left: 10px;
+    background: linear-gradient(to right, red, green);
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+}
+  
+
+
+.rating-mark {
+    content: '';
+    width: 2px;
+    background-color: black;
+    margin-left: 80%;
+}
+
+
+/* Number-of-ratings - Section */
+
+.number-of-ratings h6 {
+    margin: 10px;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.rating-details {
+    display: flex;
+    margin-left: 10px;
+    width: 160%;
+    height: 20px;
+    background-color: grey;
+    margin-bottom: 7px;
+    border: 1px solid #001021;
+}
+  
+.green-fill {
+    width: 100%;
+    height: 100%;
+    background-color: darkgreen;
+}
+  
+.light-green-fill {
+    width: 100%;
+    height: 100%;
+    background-color: forestgreen; 
+}
+  
+.orange-fill {
+    width: 100%;
+    height: 100%;
+    background-color: orange; 
+}
+  
+.red-fill {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+.rating-number {
+    margin-left: 10px;
+    padding-top: 2px;
+    font-size: 18px;
+}
+
+
+
+/*  Review form  */
 .review{
-    width: 90%;
+    width: 50% !important;
     max-height: auto;
     padding: 5px;
     margin: 5px;
     border: 2px solid  #000000;
     background-color: #e5e6e4;
-    color:#000
+    color:#000;
+
 }
 
 .review h3{
@@ -433,12 +524,14 @@ footer {
 }
 
 .writerreview {
-   background-color: #e5e6e4; 
-   color: #000;
+    background-color: #e5e6e4; 
+    color: #000;
     padding: 5px;
     margin: 5px;
     width: 90%;
     border: 2px solid  #000000;
+    position: relative;
+    right: 30%;
 }
 
 #confirmation-message {

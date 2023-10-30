@@ -182,12 +182,13 @@ function toggleRatingBtns () {
     for (let i = 0; i < allMovieElements.length; i++) {
         if(allMovieElements[i].dataset.movieId === gradedMovieId) {
             const ratingButtons = allMovieElements[i].querySelectorAll(".rating a")
-            ratingButtons.forEach((button) => {
-                button.classList.add('disabled');
-            });
             movieButton.forEach((button) => {
                 button.classList.remove('disabled');
             });
+            ratingButtons.forEach((button) => {
+                button.classList.add('disabled');
+            });
+            
 
         }
     }
@@ -222,8 +223,6 @@ if (moreBtn) {
 
 
 
-
-
 //läs mer kanpp 
 document.addEventListener("click", function (event) { 
     const expandButton = event.target; 
@@ -251,13 +250,16 @@ document.addEventListener("DOMContentLoaded", async function () {
         const movie = await getMovieById(movieId);
         const cmdbMovie = await getCmdbMoviesById(movieId);
         const moviePage = document.querySelector(".movie-details");
-        console.log(movie)
-        console.log(cmdbMovie)
 
         // Hitta de befintliga elementen inom "movie-details"
         const image = moviePage.querySelector('.image img');
         const storyText = moviePage.querySelector('.story p');
         const gradeText = moviePage.querySelector('.grade p');
+        const ratingsAmount = moviePage.querySelector('.number-of-ratings h6');
+        const ratingSpans = moviePage.querySelectorAll(".rating-number");
+        const ratingMark = moviePage.querySelector(".rating-mark");
+        const spanFills = moviePage.querySelectorAll(".span-fills");
+        const gradeScale = moviePage.querySelector('.rating-no1');
         const reviewList = document.querySelector('.listofreview');
         
         // Uppdatera innehållet i elementen med filmens data
@@ -268,8 +270,34 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Check if cmdbMovie exists and has a cmdbScore
         if (cmdbMovie && cmdbMovie.cmdbScore) {
             gradeText.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+            gradeScale.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+            ratingsAmount.textContent = `Antal röster: ${cmdbMovie.count}`
         } else {
-            gradeText.textContent = "Filmen finns inte i Cmdb.Skriv en rececion eller sätt ett betyg för att lägga till den.";
+            gradeText.textContent = "Filmen finns inte i Cmdb. Skriv en rececion eller sätt ett betyg för att lägga till den.";
+        }
+
+        
+        const decimalOfScore = cmdbMovie.cmdbScore / 4;
+        const percentageOfScore = decimalOfScore * 100;
+        ratingMark.style.marginLeft = `${percentageOfScore}%`;
+
+        const availableScores = [4, 3, 2, 1];
+        let allMovieScores = cmdbMovie.categorizedScores;
+
+        for (let i = 0; i < availableScores.length; i++) {
+            const scoreData = allMovieScores.find(score => score.score === availableScores[i]);
+            if (scoreData) {
+                ratingSpans[i].textContent = scoreData.count;
+            } else {
+                ratingSpans[i].textContent = 0;
+            }
+        }
+
+        // Asignes the spans the correct width so the color corresponds with amount of votes.
+        for (let i = 0; i < ratingSpans.length; i++) {
+            const decimalOfVotes = parseFloat(ratingSpans[i].textContent) / cmdbMovie.count
+            const percentageOfVotes = decimalOfVotes * 100;  //Multiply by 100 to get the floatnumber into a percentage
+            spanFills[i].style.width = `${percentageOfVotes}%`;
         }
 
         // Ta bort befintliga recensioner
@@ -365,13 +393,16 @@ document.addEventListener("submit", async function (e) {
     const reviewer = document.querySelector("#fname").value;
     const review = document.querySelector("#review").value;
 
-    for (let i = 0; i < movie.count; i++) {
-        if (movie.reviews[i].reviewer === reviewer) {
-            submitButton.disabled = true;
-            alert("Du har redan skrivit en recension för den här filmen.")
-            break
+    if (movie) {
+        for (let i = 0; i < movie.count; i++) {
+            if (movie.reviews[i].reviewer === reviewer) {
+                submitButton.disabled = true;
+                alert("Du har redan skrivit en recension för den här filmen.")
+                break
+            }
         }
     }
+    
 
     reviewMovie(movieId, reviewer, score, review);
     submitButton.disabled = true;
@@ -480,5 +511,6 @@ async function displayLatestReview () {
 displayLatestReview();
 
 const latestReviewInterval = setInterval(displayLatestReview, 3000);
+
 
 
