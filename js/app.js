@@ -377,6 +377,8 @@ ratingButtonsForm.forEach((button) => {
     button.addEventListener('click', (event) => {
         event.preventDefault();
         score = parseFloat(button.textContent);
+        ratingButtonsForm.forEach((btn) => btn.classList.remove('enable'));
+        button.classList.add('enable');
     });
 });
 

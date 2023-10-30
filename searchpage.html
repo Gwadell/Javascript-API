@@ -11,18 +11,20 @@
     <header>
         <h1>Sökresultat</h1>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Hem</a></li>
-            <li><a href="about-us.html">Om oss</a></li>
-        </ul>
-        <div class="searchbar" >
-            <form action="searchpage.html">
-                <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
-                <button type="submit" class="searchbutton">Sök</button>
-            </form> 
-        </div>
-    </nav>
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="index.html">Hem</a></li>
+                <li><a href="about-us.html">Om oss</a></li>
+            </ul>
+            <div class="searchbar" >
+                <form method="get" action="searchpage.html">
+                    <input type="text" placeholder=" Sök efter film..." name="search" class="searchtext">  
+                    <button type="submit" class="searchbutton">Sök</button>
+                </form> 
+            </div>
+        </nav>
+    </div>
     <aside>
         <h2>Filter</h2>
         <div class="filterform">
