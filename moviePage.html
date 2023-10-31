@@ -66,53 +66,69 @@
                             <span class="rating-number rating-span1">0</span>
                         </div>
                     </section>
+                    <h3 class="rate-movie-text">Sätt ett betyg på filmen:</h3>
+                    <div class="rate-movie">
+                        <ul>
+                            <li>
+                                <a href="#" class="one">1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="two">2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="three">3</a>
+                            </li>
+                            <li>
+                                <a href="#" class="four">4</a>
+                            </li>
+                        </ul>
+                    </div>
                 </section>
             </aside>
-            
-            <div class="story">
-                <h3>Handling</h3>
-                <p>Filmen handlar om en kille som är ute i skogen. Han hade gröna byxor och en grå tröja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, libero sint eos deleniti architecto adipisci a ex? Veritatis, dolorum. Quidem alias laudantium sint illo sunt odio nihil vero quasi, perspiciatis eligendi modi! Facere, itaque. <br> <br> Tenetur quod libero expedita id voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto minima voluptatibus ex adipisci iure, cumque quo temporibus optio pariatur explicabo.</p>
-            </div>
-            <div class="review">
-                <h3>Recensioner</h3>
-                <ul class="listofreview"></ul>
-                <button type="button" class="btn-prev">Tillbaka</button>
-                <button type="button" class="btn-next">Nästa</button>
-            </div>
+            <section class="details-main-content">
+                <div class="story">
+                    <h3>Handling</h3>
+                    <p>Filmen handlar om en kille som är ute i skogen. Han hade gröna byxor och en grå tröja. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, libero sint eos deleniti architecto adipisci a ex? Veritatis, dolorum. Quidem alias laudantium sint illo sunt odio nihil vero quasi, perspiciatis eligendi modi! Facere, itaque. <br> <br> Tenetur quod libero expedita id voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto minima voluptatibus ex adipisci iure, cumque quo temporibus optio pariatur explicabo.</p>
+                </div>
+                <div class="reviews">
+                    <h3>Recensioner</h3>
+                    <ul class="listofreview"></ul>
+                    <button type="button" class="btn-prev">Tillbaka</button>
+                    <button type="button" class="btn-next">Nästa</button>
+                </div>
+            </section>
             <div class="writerreview">
-                <div class="write">
-                    <form action="/action_page.php" method="post" id="review-form">
-                        <h3>Skriv en recension</h3>
+                <form action="/action_page.php" method="post" id="review-form">
+                    <h3>Skriv en recension</h3>
 
-                        <label for="fname">Namn:</label> <br>
-                        <input type="text" id="fname" name="fname" placeholder="Ditt Namn..." required>
-                        <br> <br>
+                    <label for="fname">Namn:</label> <br>
+                    <input type="text" id="fname" name="fname" placeholder="Ditt Namn..." required>
+                    <br> <br>
 
-                        <label>Sätt ett betyg på filmen: </label>
-                            <div class="rating">
-                                <ul>
-                                    <li>
-                                        <a href="#" class="one">1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="two">2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="three">3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="four">4</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        <br> 
-                        <label for="review">Recension:</label>
-                        <br>
-                        <textarea id="review" name="review" placeholder="Skriv din recension här..." required></textarea>
-                        <input type="submit" value="Skicka recension" id="submit-button">
-                    </form>
-                    <div id="confirmation-message" class="hidden">Tack för din recension!</div>
-                </div>  
+                    <label>Sätt ett betyg på filmen: </label>
+                        <div class="rating">
+                            <ul>
+                                <li>
+                                    <a href="#" class="one">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="two">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="three">3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="four">4</a>
+                                </li>
+                            </ul>
+                        </div>
+                    <br> 
+                    <label for="review">Recension:</label>
+                    <br>
+                    <textarea id="review" name="review" placeholder="Skriv din recension här..." required></textarea>
+                    <input type="submit" value="Skicka recension" id="submit-button">
+                </form>
+                <div id="confirmation-message" class="hidden">Tack för din recension!</div>
             </div>
         </div>  
     </main>

@@ -21,7 +21,7 @@ body {
     background-color: #222 ;
     color: #fff;
     padding: 10px;
-    background-image: url("/interaktiva-ht23-cmdb-interaktiva23_g20/img/header.jpg");
+    background-image: url("/img/header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center bottom -220px;
@@ -34,7 +34,7 @@ body {
     background-color: #222 ;
     color: #fff;
     padding: 10px;
-    background-image: url("/interaktiva-ht23-cmdb-interaktiva23_g20/img/header.jpg");
+    background-image: url("/img/header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center bottom -220px;
@@ -175,9 +175,6 @@ main {
     height: 300px;
     margin-top: 5px;
 }
-
-
-
 
 .summary {
     max-height: 90px;
@@ -382,16 +379,10 @@ footer {
 
 
 /* Detaljsida */
-.movie-details  {
-    margin: 5px 15px 15px 15px;
+.movie-details {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     background-color: #1d2d44;
-}
-
-.movie-main {
-    margin: 10px 10px 10px 50px;
 }
 
 .movie-header {
@@ -400,15 +391,17 @@ footer {
 }
 
 .image img{
-    max-width: 300px;
-    border: 2px solid black;  
+    width: 300px;
+    height: auto;
+    border: 2px solid black;
+    margin-bottom: 20px;
 }
 
 
 .aside-moviedetails {
     display: flex;
     text-align: center;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #274060 !important;
     color: white;
 }
@@ -420,7 +413,7 @@ footer {
     display: flex;
     flex-direction: column;
     width: 22%;
-    margin: 20px auto 20px 60px;
+    align-items: center;
 }
 
 .rating-stats h3 {
@@ -440,7 +433,6 @@ footer {
     display: flex;
     width: 140%;
     height: 24px;
-    margin-left: 10px;
     background: linear-gradient(to right, red, green);
     border: 1px solid black;
     border-radius: 5px;
@@ -454,20 +446,40 @@ footer {
     margin-left: 80%;
 }
 
+.rate-movie-text {
+    margin: 20px 0;
+    width: 180% !important;
+}
+
+.rate-movie ul{
+    margin: 5px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    list-style: none;
+    text-decoration: none;
+}
+
+.rate-movie ul li a{
+    text-decoration: none;
+    color: black; 
+}
 
 /* Number-of-ratings - Section */
 
 .number-of-ratings h6 {
-    margin: 10px;
+    margin: 20px 10px 10px 0;
     font-weight: normal;
     font-size: 18px;
-    width: 140%;
+    width: 100%;
 }
 
 .rating-details {
     display: flex;
-    margin-left: 10px;
-    width: 160%;
+    width: 150%;
+    margin-left: -35px;
     height: 20px;
     background-color: grey;
     margin-bottom: 7px;
@@ -516,7 +528,7 @@ footer {
 
 
 /*  Reviews  */
-.review {
+.reviews {
     max-height: auto;
     padding: 5px;
     margin: 10px;
@@ -525,13 +537,11 @@ footer {
     font-size: 18px;
 }
 
-.review h3 {
-    text-align: center;
+.reviews h3 {
     padding: 10px;
 }
 
 .listofreview {
-    padding: 0;
     list-style: none;
 }
 
@@ -542,7 +552,7 @@ footer {
     margin: 14px 10px;
     background-color: #274060;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: #fff; /* Vit textfärg */
+    color: #fff;
 }
 
 .btn-prev, .btn-next {
@@ -572,9 +582,27 @@ footer {
     flex-direction: column;
     background-color: #274060; 
     text-align: center;
-    align-items: center;
     margin: 10px;
     border: 2px solid  #000000;
+    padding: 20px;
+}
+
+#review{
+    padding: 5px;
+    width: 55%;
+    height: 100px;
+}
+
+#submit-button {
+    height: 30px;
+    width: 47%;
+    font-weight: 600;
+    border: 1px solid forestgreen;
+}
+
+#submit-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #confirmation-message {
@@ -605,38 +633,9 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     padding-bottom: 10px;
 }
 
-.write{
-    width: 60%;
-    max-height: auto;
-    padding: 20px;
-    background-color: #274060;
-}
-
 .rating ul li a{
     text-decoration: none;
     color: black; 
-}
-
-#review{
-    padding: 5px;
-    width: 80%;
-    height: 100px;
-}
-
-.write form input{
-    width: 80%;
-}
-
-#submit-button {
-    height: 30px;
-    width: 47%;
-    font-weight: 600;
-    border: 1px solid forestgreen;
-}
-
-#submit-button:hover {
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 
@@ -713,7 +712,7 @@ input[type="submit"] {
     background-color: lightgreen;
 }
 
-aside{
+.socialmedia, .kontakt{
     background-color: #e5e6e4;
     border: 1px solid  #000000;
     padding: 10px;
@@ -886,9 +885,7 @@ input[type="submit"] {
         height: 100px;
         margin-top: 5px;
         
-    }
-
-    
+    }  
 
     .flex-item2 .movie {
         display: flex;
@@ -908,9 +905,6 @@ input[type="submit"] {
         margin-top: 5px;
     }
 
-    
-
-    
     .bestmovie {
         width: 93.5%;
         margin: 10px;
@@ -922,9 +916,6 @@ input[type="submit"] {
         font-size: larger;
         padding: 5px
     }
-
-
-
 
     .movie4-10 {
         width: 25%;
@@ -976,14 +967,9 @@ input[type="submit"] {
     
     /* detaljsida */
 
-
     .movie-details {
         flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: start; 
     }
-   
 
     .image img{
         max-width: 100%;
@@ -1003,7 +989,7 @@ input[type="submit"] {
         padding: 20px;
     }
 
-    .review{
+    .reviews{
         width: 76%;
         margin: 10px;
     }
@@ -1012,16 +998,6 @@ input[type="submit"] {
         padding: 10px;
         width: 94%;
         margin: 10px;
-    }
-
-    .write{
-        width: 40%;
-        max-height: auto;
-        padding: 5px;
-        margin: 10px;
-        padding: 20px;
-        background-color: #e5e6e4;
-        color: #000;
     }
 
 
@@ -1133,13 +1109,9 @@ input[type="submit"] {
 
 
 @media screen and (min-width: 1200px) {
-   header h1 {
-       font-size: 48px;
-   }
-
-   header{
-    padding: 70px;
-   }
+    header {
+        padding: 70px;
+    }
 
     .moviepage-header {
         padding: 0px;
@@ -1149,53 +1121,88 @@ input[type="submit"] {
     .moviepage-header h1 {
         font-size: 32px;
     }
-
     
     nav {
         height: 80px;
     }
 
+
     /* detaljsida */
 
-    .image{
-        width: 13%;
-        
+    .aside-moviedetails {
+        width: 26%;
+        padding-top: 20px;
+        margin: 20px auto 20px 20px;
+        height: 150vh;
+        align-items: center;
+        position: relative;
     }
 
-    .story{
-        width: 75%;  
-        font-size: 18px;
-        padding-bottom: 60px;
+    .movie-details {
+        display: flex;
+        flex-direction: row;
     }
 
-    .review{
-        width: 77.5%;
+    .movie-header {
+        margin-bottom: 10px;
+        font-size: 24px;
     }
+
+    .image {
+        width: 100%;
+        height: auto;
+    }
+
+
+    /*  Rating-stats  */
+
+    .rating-stats {
+        width: 30%;
+    }
+
+    .rating-scale {
+        width: 230% !important;
+    }
+
+    
+    /*  Main-content - Movie details page   */
+
+    .details-main-content {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 70%;
+        background-color: #335C81;
+        align-items: center;
+        padding: 15px 0 25px 0;
+    }
+
+    .story {
+        width: 96%;
+        padding: 0;
+    }
+
+    .reviews {
+        width: 96%;
+        margin: 0;
+        padding: 0;
+    }
+
 
     .writerreview {
-        width: 33%;
+        width: 20%;
+        margin: 20px 0;
+        padding: 20px;
+        position: absolute;
+        z-index: 1;
+        top: 130%;
+        left: 3%;
     }
 
-    .write{
-        width: 70%;
-        
-    }
-
-    .trailer{
-        width: 57%;
-        margin: 10px;
-        
-    }
-
-    .trailer iframe{
-        width: 100%;
-        height: 370px;
-        border: none;
-    }
 
 
     
-    /* om oss  */
+    /* About us  */
 
     .container {
         flex-direction: row;
