@@ -50,8 +50,6 @@ async function getAndDisplayMovies(numberofMovies) {
 }
 
 
-
-
 // Method to create three new movies
 let movieButton;
 let numberOfCreatedMovies = 0;
@@ -59,9 +57,15 @@ function createANewMovie () {
     const startpage = document.querySelector(".startpage");
     const latestReview = startpage.querySelector(".latest-review");
     
-
     for (let i = 0; i < 3; i++) {
         const newMovie = startpage.querySelector(".movie4-10").cloneNode(true);
+        
+        const img = newMovie.querySelector("img");
+        const title = newMovie.querySelector("h3 a");
+        
+        img.src = "../img/loading.gif";
+        title.textContent = "Laddar...";
+        
         startpage.insertBefore(newMovie, latestReview);
         movieButton = newMovie.querySelectorAll(".rating a");
         numberOfCreatedMovies++;
@@ -69,7 +73,7 @@ function createANewMovie () {
             button.classList.remove('disabled');
         });
     }
-} 
+}
 
 
 
