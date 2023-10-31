@@ -41,7 +41,7 @@ async function getAndDisplayMovies(numberofMovies) {
 }
 
 
-//Hämta topplistan 
+// Retrieve the toplist 
  async function getToplist(limit) {
     const endpoint = "/toplists?sort=desc&limit=" +limit +"&page=1&countlimit=2";
     const response = await fetch(cmdbUrl + endpoint);
@@ -53,14 +53,21 @@ async function getAndDisplayMovies(numberofMovies) {
 
 
 // Method to create three new movies
+let movieButton;
 let numberOfCreatedMovies = 0;
 function createANewMovie () {
     const startpage = document.querySelector(".startpage");
     const latestReview = startpage.querySelector(".latest-review");
+    
+
     for (let i = 0; i < 3; i++) {
         const newMovie = startpage.querySelector(".movie4-10").cloneNode(true);
         startpage.insertBefore(newMovie, latestReview);
+        movieButton = newMovie.querySelectorAll(".rating a");
         numberOfCreatedMovies++;
+        movieButton.forEach((button) => {
+            button.classList.remove('disabled');
+        });
     }
 } 
 
@@ -76,10 +83,10 @@ if (moreBtn) {
     });
 }
 
+
 //klicka på betygsknapparna
 document.addEventListener("click", async function (event) {
     
-
     const targetClass = event.target.classList[0];
     const ratingButton = ratingButtons.find(button => button.className === targetClass);
 
@@ -136,7 +143,6 @@ const ratingButtons = [
 
 //Metod för att disabla betygskanpparna vid klick
 let gradedMovieId;
-let movieButton;
 function toggleRatingBtns () {
     const allMovieElements = document.querySelectorAll(".movie");
     for (let i = 0; i < allMovieElements.length; i++) {

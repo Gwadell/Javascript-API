@@ -10,17 +10,34 @@ body, h1, h2, h3, ul, li {
 /* Set a default font and background color */
 body {
     font-family: 'Josefin Sans', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #001021;
 }
 
 /* Style the header */
-header {
+.startpage-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: #222 ;
     color: #fff;
     padding: 10px;
+    background-image: url("/interaktiva-ht23-cmdb-interaktiva23_g20/img/header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom -220px;
+}
+
+.moviepage-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #222 ;
+    color: #fff;
+    padding: 10px;
+    background-image: url("/interaktiva-ht23-cmdb-interaktiva23_g20/img/header.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom -220px;
 }
 
 header h1 {
@@ -46,12 +63,13 @@ header img {
 
 /* Style the navigation menu */
 nav {
-    background-color: #e5e6e4;
+    background-color: #1d2d44;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     padding: 5px;
+    margin-bottom: 10px;
 }
 
 nav ul {
@@ -66,7 +84,7 @@ nav li {
 }
 
 nav a {
-    color: black;
+    color: white;
     text-decoration: none;
     font-weight: bold;
     display: block;
@@ -93,7 +111,7 @@ nav a.dennasida {
 .searchbar input[type="text"] {
     width: 90%;
     height: 20px;
-    margin-bottom: 10px;
+    margin: 0 0 10px 10px;
     border-radius: 4px;
     border: 2px solid black;
 }
@@ -102,6 +120,7 @@ button[type="submit"] {
     width: 90%;
     height: 20px;
     border: 2px solid black;
+    margin-left: 13px;
     background-color: rgb(253, 185, 103);
 }
 
@@ -128,8 +147,8 @@ button[type="submit"] {
 /* Style the main content */
 
 main {
-    background-color: #3a3d3f;
-    color: #fff;
+    background-color: #001021 !important;
+    color: #fff !important;
     padding-top: 10px;
 }
 
@@ -142,11 +161,10 @@ main {
 }
 
 .movie {
-    background-color: #e5e6e4;
+    background-color: #274060;
     margin-bottom: 10px;
     padding: 10px;
     margin: 10px;
-    color : #000;
     width: 90%;
     border: 2px solid  #000000;
     text-align: center;
@@ -177,7 +195,7 @@ main {
 
 
 .movie a {
-    color: #000;
+    color: white;
     text-decoration: none;
     opacity: 1;
     
@@ -282,8 +300,7 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
 .latest-review {
     display: flex;
     flex-direction: column;
-    border: 1px solid grey;
-    background-color: lightblue;
+    background-color: #274060;
     padding: 30px 30px 30px 40px;
     margin: 10px;
     width: 56%;
@@ -295,8 +312,8 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
 .latest-review hr {
     width: 50%;
     margin: 2px 2px 15px 2px;
-    height: 1px;
-    background-color: black;
+    height: 2px;
+    background-color: white;
     border: none;
 }
 
@@ -312,7 +329,7 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     margin-top: 15px;
     width: 70%;
     text-align: start;
-    border: 2px solid black;
+    border: 2px solid lightcyan;
     padding: 20px;
     margin-left: -20px;
     height: 20vh;
@@ -332,34 +349,26 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     font-weight: 600;
 }
 
-#testcolor:hover{
-    background-color:yellow; 
-    border-radius: 10px;
-    
-    
-}
-
 .startpagegrade:hover{
     background-color: lightgreen;
     border-radius: 10px;
 }
 
-
 .more-btn {
-    background-color: white;
+    background-color: #274060;
     border: 2px solid black;
     border-radius: 18px;
     padding: 17px;
     font-size: 14px;
-    width: 10%;
+    width: 20%;
     margin: 10px;
     position: relative;
-    left: 43.5%;
+    left: 37.5%;
     cursor: pointer;
 }
 
 .more-btn:hover {
-    background-color: lightblue;
+    background-color: #335C81;
     border: 3px solid black;
 }
 
@@ -374,31 +383,35 @@ footer {
 
 /* Detaljsida */
 .movie-details  {
+    margin: 5px 15px 15px 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: #f0f0f0;
-    
+    background-color: #1d2d44;
 }
-.image{
-    margin:5px;
+
+.movie-main {
+    margin: 10px 10px 10px 50px;
+}
+
+.movie-header {
+    margin-bottom: 10px;
+    font-size: 24px;
 }
 
 .image img{
-  max-width: 190px;  
-}
-
-.story{
-    max-height: auto;
-    padding: 5px;
-    margin: 5px;
-    border: 2px solid  #000000;
-    background-color: #e5e6e4;
-    color: #000;
+    max-width: 300px;
+    border: 2px solid black;  
 }
 
 
-
+.aside-moviedetails {
+    display: flex;
+    text-align: center;
+    flex-direction: row;
+    background-color: #274060 !important;
+    color: white;
+}
 
 
 /*  Rating-stats  */
@@ -407,29 +420,25 @@ footer {
     display: flex;
     flex-direction: column;
     width: 22%;
-    margin: 20px auto 20px 20px;
-    align-items: start;
-
+    margin: 20px auto 20px 60px;
 }
 
-.grade {
-    width: 50% !important;
-    max-height: 100px;
-    border: 2px solid  #000000;
-    padding: 10px;
-    background-color: green;
-    text-align: center;
+.rating-stats h3 {
+    width: 160%;
+    margin-bottom: 8px;
 }
+
 
 /* Rating-scale - Section */
 
 .rating-no1 {
     margin: 10px 0 5px 135px;
+    width: 70%;
 }
 
 .rating-scale {
     display: flex;
-    width: 230px;
+    width: 140%;
     height: 24px;
     margin-left: 10px;
     background: linear-gradient(to right, red, green);
@@ -437,8 +446,6 @@ footer {
     border-radius: 5px;
     overflow: hidden;
 }
-  
-
 
 .rating-mark {
     content: '';
@@ -454,6 +461,7 @@ footer {
     margin: 10px;
     font-weight: normal;
     font-size: 18px;
+    width: 140%;
 }
 
 .rating-details {
@@ -496,43 +504,77 @@ footer {
     font-size: 18px;
 }
 
-
-
-/*  Review form  */
-.review{
-    width: 50% !important;
+/*  Handling  */
+.story {
     max-height: auto;
-    padding: 5px;
-    margin: 5px;
+    padding: 15px;
+    margin: 10px;
     border: 2px solid  #000000;
-    background-color: #e5e6e4;
-    color:#000;
-
+    background-color: #274060;
+    font-size: 18px;
 }
 
-.review h3{
+
+/*  Reviews  */
+.review {
+    max-height: auto;
+    padding: 5px;
+    margin: 10px;
+    border: 2px solid  #000000;
+    background-color: #274060;
+    font-size: 18px;
+}
+
+.review h3 {
     text-align: center;
     padding: 10px;
 }
 
+.listofreview {
+    padding: 0;
+    list-style: none;
+}
 
 .listofreview li {
-    list-style-type: none;
-    padding: 10px;
-    border-top: 0.5px solid #000;
-    border-left: 0.5px solid #000;
-    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 14px 10px;
+    background-color: #274060;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff; /* Vit textfärg */
+}
+
+.btn-prev, .btn-next {
+    margin: 5px 5px;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.btn-prev {
+    background-color: #2B547E;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.btn-next {
+    background-color: forestgreen;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .writerreview {
-    background-color: #e5e6e4; 
-    color: #000;
-    padding: 5px;
-    margin: 5px;
-    width: 90%;
+    display: flex;
+    flex-direction: column;
+    background-color: #274060; 
+    text-align: center;
+    align-items: center;
+    margin: 10px;
     border: 2px solid  #000000;
-    position: relative;
-    right: 30%;
 }
 
 #confirmation-message {
@@ -559,36 +601,24 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     display: none;
 }
 
-
 .writerreview h3, .writerreview label {
     padding-bottom: 10px;
 }
 
 .write{
-    width: 80%;
+    width: 60%;
     max-height: auto;
     padding: 20px;
-    background-color: #e5e6e4;
-    color: #000;
+    background-color: #274060;
 }
-
-.write .rating{
-    margin-left: 0px;
-}
-
-.write .rating ul{
-    justify-content: flex-start;
-}
-
 
 .rating ul li a{
-    list-style: none;
     text-decoration: none;
     color: black; 
 }
 
-
 #review{
+    padding: 5px;
     width: 80%;
     height: 100px;
 }
@@ -597,20 +627,20 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     width: 80%;
 }
 
-
-
-.trailer{
-    width: 90%;
-    max-height: 800px;
+#submit-button {
+    height: 30px;
+    width: 47%;
+    font-weight: 600;
+    border: 1px solid forestgreen;
 }
 
-.trailer iframe{
-    width: 100%;
-    height: 100%;
-    border: none;
+#submit-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-/* om oss sida */
+
+/* Om oss sida */
 
 .container{
     display: flex;
@@ -678,16 +708,12 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
 
 /* sökresultat sida */
 
-
 input[type="submit"] {
-    
-    
     border: 2px solid black;
     background-color: lightgreen;
 }
 
-
- aside{
+aside{
     background-color: #e5e6e4;
     border: 1px solid  #000000;
     padding: 10px;
@@ -744,10 +770,6 @@ main {
 }
 
 
-
-
-
-
 .filterform form {
     display: flex;
     flex-direction: column;
@@ -796,7 +818,6 @@ input[type="submit"] {
 
 
 @media screen and (min-width: 750px) {
-
     header img {
         max-width: 100px;
     }
@@ -813,8 +834,6 @@ input[type="submit"] {
     nav ul{
         display: flex;
         flex-direction: row;
-        
-    
     }
 
     nav li {
@@ -832,9 +851,7 @@ input[type="submit"] {
         margin-right: 20px;
         height: 30px;
     }
-
-    
-    
+       
     button[type="submit"] {
         width: 100px;
         height: 35px;
@@ -938,8 +955,6 @@ input[type="submit"] {
         align-items: center;
         padding: 10px;
     }
-
-
     
     .listmovie {
         border: solid 2px #000;
@@ -952,6 +967,11 @@ input[type="submit"] {
         max-height: 35px;
         overflow: auto;
         transition: max-height 0.5s ease-out;
+    }
+
+    .more-btn {
+        width: 12%;
+        left: 42%;
     }
     
     /* detaljsida */
@@ -983,19 +1003,12 @@ input[type="submit"] {
         padding: 20px;
     }
 
-    .grade{
-        width: 12%;
-        margin: 10px;
-    }
-
     .review{
         width: 76%;
         margin: 10px;
     }
 
     .writerreview {
-        background-color: #e5e6e4 ;
-        color: #000;
         padding: 10px;
         width: 94%;
         margin: 10px;
@@ -1009,26 +1022,8 @@ input[type="submit"] {
         padding: 20px;
         background-color: #e5e6e4;
         color: #000;
-        
-    }
-    
-    .trailer{
-        width: 96%;
-        height: auto;
-        margin: 10px;
-        
     }
 
-    .trailer iframe{
-        width: 100%;
-        height: auto;
-        border: none;
-    }
-
-    .trailer h3{
-        padding: 10px;
-
-    }
 
     /* om oss  */
 
@@ -1146,90 +1141,81 @@ input[type="submit"] {
     padding: 70px;
    }
 
-  
-/* startsida */
+    .moviepage-header {
+        padding: 0px;
+        background-position: center bottom -400px;
+    }
 
-.flex-item1 .movie img {
-    max-width: 100%;
-    height: 350px;
-    margin-top: 5px;
-}
-.flex-item2 .movie img {
-    max-width: 100%;
-    height: 300px !important;
-    margin-top: 5px;
+    .moviepage-header h1 {
+        font-size: 32px;
+    }
+
     
-}
+    nav {
+        height: 80px;
+    }
+
+    /* detaljsida */
+
+    .image{
+        width: 13%;
+        
+    }
+
+    .story{
+        width: 75%;  
+        font-size: 18px;
+        padding-bottom: 60px;
+    }
+
+    .review{
+        width: 77.5%;
+    }
+
+    .writerreview {
+        width: 33%;
+    }
+
+    .write{
+        width: 70%;
+        
+    }
+
+    .trailer{
+        width: 57%;
+        margin: 10px;
+        
+    }
+
+    .trailer iframe{
+        width: 100%;
+        height: 370px;
+        border: none;
+    }
 
 
-
-   /* detaljsida */
-
-.image{
-    width: 13%;
     
-}
-
-.story{
-    width: 75%;  
-    font-size: 18px;
-    padding-bottom: 60px;
-}
-
-.grade{
-    width: 11.5%;
-}
-
-.review{
-    width: 77.5%;
-}
-
-.writerreview {
-    width: 33%;
-}
-
-.write{
-    width: 70%;
-    
-}
-
-.trailer{
-    width: 57%;
-    margin: 10px;
-    
-}
-
-.trailer iframe{
-    width: 100%;
-    height: 370px;
-    border: none;
-}
-
-
-
-   
-   
     /* om oss  */
 
-    .container{
+    .container {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: space-around;
     }
-    
-    .history{
-       font-size: 18px;
-    }
-    
-    .kontakt{
+
+    .history {
         font-size: 18px;
     }
-    
+
+    .kontakt {
+        font-size: 18px;
+    }
+
     .socialmedia{
         font-size: 18px;
     }
-    
+
     .contact-form{
         font-size: 18px;
         display: flex;
@@ -1244,8 +1230,8 @@ input[type="submit"] {
     }
     .contact-form input{
         width: 90%;
-        height: 30px;
         margin: 10px;
+        height: 30px;
     }
 
     .contact-form textarea{
