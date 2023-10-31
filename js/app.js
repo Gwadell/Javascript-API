@@ -1,4 +1,3 @@
-
 export const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 export const omdbUrl = "https://www.omdbapi.com/?"
 
@@ -23,8 +22,6 @@ async function getListMoviesByTitle(title) {
     return data;
 }
 
-
-
 export const searchtext = document.querySelector(".searchtext"); 
 export const searchButton = document.querySelector(".searchbutton"); 
 export const movieResults = document.querySelector(".movie-results"); 
@@ -32,7 +29,6 @@ export const movieResults = document.querySelector(".movie-results");
 //Visar filmer samtidigt som jag skriver i sökfältet
 searchtext.addEventListener("input", async function () { 
     const text = searchtext.value; 
-
 
     if (text.trim() !== '') { // så fort det står något i sökfältet så hämtas filmer från api
 
@@ -57,7 +53,6 @@ searchtext.addEventListener("input", async function () {
             document.querySelector('.popup').style.display = 'none';
         }
 });
-
 
 //för sökknappen på alla sidor
 searchButton.addEventListener("click", function (event) {
@@ -103,4 +98,3 @@ export async function getMovieById(id) {
     const data = await response.json();
     return data;
 } 
-

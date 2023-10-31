@@ -2,9 +2,7 @@ import { cmdbUrl } from "./app.js";
 import { getMovieById } from "./app.js";
 import { getCmdbMoviesById } from "./app.js";
 
-
-
-//detaljsidan
+//Detaljsidan
 document.addEventListener("DOMContentLoaded", async function () { 
     const urlParams = new URLSearchParams(window.location.search); // Get query parameters from the URL
     const movieId = urlParams.get("id");
@@ -16,34 +14,38 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Hitta de befintliga elementen inom "movie-details"
         const image = moviePage.querySelector('.image img');
+        const title = moviePage.querySelector('.movie-header');
         const storyText = moviePage.querySelector('.story p');
-        const gradeText = moviePage.querySelector('.grade p');
+        // const gradeText = moviePage.querySelector('.grade p');
         const ratingsAmount = moviePage.querySelector('.number-of-ratings h6');
         const ratingSpans = moviePage.querySelectorAll(".rating-number");
         const ratingMark = moviePage.querySelector(".rating-mark");
+        const ratingNo1 = moviePage.querySelector(".rating-no1");
         const spanFills = moviePage.querySelectorAll(".span-fills");
-        const gradeScale = moviePage.querySelector('.rating-no1');
         const reviewList = document.querySelector('.listofreview');
         
         // Uppdatera innehållet i elementen med filmens data
         image.src = movie.Poster;
         image.alt = "Filmposter";
+        title.textContent = movie.Title;
         storyText.textContent = movie.Plot;
 
         // Check if cmdbMovie exists and has a cmdbScore
         if (cmdbMovie && cmdbMovie.cmdbScore) {
-            gradeText.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
-            gradeScale.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
+            ratingNo1.textContent = `Betyg: ${cmdbMovie.cmdbScore}`;
             ratingsAmount.textContent = `Antal röster: ${cmdbMovie.count}`
         } else {
-            gradeText.textContent = "Filmen finns inte i Cmdb. Skriv en rececion eller sätt ett betyg för att lägga till den.";
+            ratingNo1.textContent = "Filmen finns inte i Cmdb. Skriv en rececion eller sätt ett betyg för att lägga till den.";
         }
 
-        
+        // Makes the rating scale respond to the movies average rating 
         const decimalOfScore = cmdbMovie.cmdbScore / 4;
         const percentageOfScore = decimalOfScore * 100;
         ratingMark.style.marginLeft = `${percentageOfScore}%`;
+        ratingNo1.style.marginLeft = `${percentageOfScore}%`;
+        
 
+        // Sets the rating detail spans to the correct rating numbers
         const availableScores = [4, 3, 2, 1];
         let allMovieScores = cmdbMovie.categorizedScores;
 
@@ -56,16 +58,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
 
-        // Asignes the spans the correct width so the color corresponds with amount of votes.
+        // Asignes the spans the correct width so the color corresponds with the amount of votes.
         for (let i = 0; i < ratingSpans.length; i++) {
             const decimalOfVotes = parseFloat(ratingSpans[i].textContent) / cmdbMovie.count
             const percentageOfVotes = decimalOfVotes * 100;  //Multiply by 100 to get the floatnumber into a percentage
             spanFills[i].style.width = `${percentageOfVotes}%`;
-        }
-
-        // Ta bort befintliga recensioner
-        while (reviewList.firstChild) {
-            reviewList.removeChild(reviewList.firstChild);
         }
 
         let rating = 1;
@@ -130,8 +127,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 }); 
 
 
-
-
 const form = document.getElementById("review-form");
 const ratingButtonsForm = document.querySelectorAll('.rating a');
 let score = 0;
@@ -155,7 +150,6 @@ document.addEventListener("submit", async function (e) {
     const submitButton = form.querySelector('input[type="submit"]');
     const confirmationMessage = document.querySelector("#confirmation-message");
     
-
     const reviewer = document.querySelector("#fname").value;
     const review = document.querySelector("#review").value;
 
@@ -168,12 +162,10 @@ document.addEventListener("submit", async function (e) {
             }
         }
     }
-    
 
     reviewMovie(movieId, reviewer, score, review);
     submitButton.disabled = true;
     
-
     confirmationMessage.style.display = "block";
 
     setTimeout(function () {
