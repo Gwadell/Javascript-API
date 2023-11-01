@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const decimalOfScore = cmdbMovie.cmdbScore / 4;
         const percentageOfScore = decimalOfScore * 100;
         ratingMark.style.marginLeft = `${percentageOfScore}%`;
-        ratingNo1.style.marginLeft = `${percentageOfScore}%`;
         
 
         // Sets the rating detail spans to the correct rating numbers
@@ -146,8 +145,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 currentPage++;
                 addNextReview();
             }
-
-            
         });
 
         const btnPrev = document.querySelector(".btn-prev");

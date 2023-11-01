@@ -20,19 +20,18 @@ body {
     align-items: center;
     background-color: #222 ;
     color: #fff;
-    padding: 10px;
-    background-image: url("/img/header.jpg");
+    padding: 40px;
     background-image: url("/img/header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom -220px;
+    background-position: center bottom -180px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow */
 }
 
-.startpage-header h1 {
+.startpage-header h1, .moviepage-header h1 {
     background-color: #1d2d44;
-    padding: 5px;
-    border-radius: 20px;
+    padding: 10px;
+    border-radius: 10px;
 }  
 
 .moviepage-header {
@@ -76,8 +75,7 @@ nav {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 5px;
-    margin-bottom: 10px;
+    padding: 10px 10px 20px 10px;
 }
 
 nav ul {
@@ -88,7 +86,7 @@ nav ul {
 
 nav li {
    padding: 10px;
-   border-top: 2px solid #000;
+   border-bottom: 2px solid white;
 }
 
 nav a {
@@ -109,7 +107,7 @@ nav a:active {
 }
 
 nav a.dennasida {
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 
@@ -150,14 +148,15 @@ button[type="submit"] {
 }
 
 
-
-
 /* Style the main content */
 
 main {
     background-color: #001021 !important;
     color: #fff !important;
-    padding-top: 10px;
+}
+
+main h2 {
+    margin: 15px;
 }
 
 .startpage {
@@ -198,7 +197,6 @@ main {
     cursor: pointer;
 }
 
-
 .movie a {
     color: white;
     text-decoration: none;
@@ -211,8 +209,6 @@ main {
     cursor: pointer;
 }
 
-
-
 .movie4-10 {
     display: flex;
     flex-direction: column;
@@ -221,12 +217,9 @@ main {
     width: 90%;
 }
 
-
-
 .movie4-10 h3{
     margin-top: 5px;
 }
-
 
 .rating ul{
     display: flex;
@@ -237,7 +230,6 @@ main {
     list-style: none;
     text-decoration: none;
 }
-
 
 .one{
     background-color: rgb(224, 63, 63);
@@ -301,7 +293,6 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     padding: 10px;
 }
 
-
 .latest-review {
     display: flex;
     flex-direction: column;
@@ -309,7 +300,6 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     padding: 30px 30px 30px 40px;
     margin: 10px;
     width: 56%;
-    height: 54vh;
     align-items: start;
     font-size: 20px;
 }
@@ -354,7 +344,6 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     font-weight: 600;
 }
 
-
 .more-btn {
     background-color: #274060;
     border: 2px solid black;
@@ -373,12 +362,12 @@ a.four.disabled, a.three.disabled, a.two.disabled, a.one.disabled {
     border: 3px solid black;
 }
 
-/*footer */
+/* footer */
 footer {
-    background-color: #444;
+    background-color: #000000;
     color: #fff;
     text-align: center;
-    padding: 10px;
+    padding: 35px;
 }
 
 
@@ -387,6 +376,7 @@ footer {
     display: flex;
     flex-direction: column;
     background-color: #1d2d44;
+    margin: 10px 20px 20px 20px;
 }
 
 .movie-header {
@@ -419,7 +409,7 @@ footer {
 .rating-stats {
     display: flex;
     flex-direction: column;
-    width: 22%;
+    width: 45%;
     align-items: center;
 }
 
@@ -432,13 +422,12 @@ footer {
 /* Rating-scale - Section */
 
 .rating-no1 {
-    margin: 10px 0 5px 135px;
-    width: 70%;
+    width: 150%;
 }
 
 .rating-scale {
     display: flex;
-    width: 140%;
+    width: 120%;
     height: 24px;
     background: linear-gradient(to right, red, green);
     border: 1px solid black;
@@ -449,7 +438,7 @@ footer {
 .rating-mark {
     content: '';
     width: 2px;
-    background-color: black;
+    background-color: #001021;
     margin-left: 80%;
 }
 
@@ -488,7 +477,7 @@ footer {
     width: 150%;
     margin-left: -35px;
     height: 20px;
-    background-color: grey;
+    background-color: dimgray;
     margin-bottom: 7px;
     border: 1px solid #001021;
 }
@@ -532,7 +521,6 @@ footer {
     padding: 15px;
     margin: 10px;
     text-align: start;
-    border: 1px solid  #000000;
     background-color: #274060;
 }
 
@@ -555,14 +543,13 @@ footer {
 
 /* External ratings */
 
-.external-ratings{
+.external-ratings {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 20px 0 20px 0;
+    margin: 20px 0 20px 70px;
     font-size: 20px;
     font-weight: bold;
-
 }
 
 .external-logo-imdb {
@@ -620,7 +607,6 @@ footer {
     max-height: auto;
     padding: 5px;
     margin: 10px;
-    border: 1px solid  #000000;
     background-color: #274060;
     font-size: 18px;
 }
@@ -634,12 +620,12 @@ footer {
 }
 
 .listofreview li {
-    border: 1px solid #ccc;
+    border: 2px solid #274060;
     border-radius: 5px;
     padding: 15px;
-    margin: 14px 10px;
-    background-color: #274060;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 10px;
+    background-color: #335C81;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     color: #fff;
 }
 
@@ -712,7 +698,7 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     border: 2px solid #000;
 }
 
-/* Stil för dold klass */
+/* Style for hidden class */
 .hidden {
     display: none;
 }
@@ -727,58 +713,59 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
 }
 
 
-/* Om oss sida */
+/* About us page */
 
 .container{
+    margin: 20px;
+    background-color: #1d2d44;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
+    color: white;
 }
 
 .history{
-    background-color: #e5e6e4;
+    background-color: #274060;
     border: 2px solid  #000000;
-    padding: 10px;
+    padding: 20px;
+    text-align: start;
+    line-height: 1.5;
+    font-size: 18px;
     margin: 10px;
     width: 90%;
 }
 
-.kontakt{
-    background-color: #e5e6e4;
+.contact {
+    background-color: #274060 !important;
     border: 2px solid  #000000;
     padding: 10px;
     margin: 10px;
     width: 90%;
+    font-size: 18px;
 }
 
-.kontakt iframe {
+.contact iframe {
     width: 90%;
-    height: auto;
     border: none;
 }
 
 .socialmedia{
-   background-color: #e5e6e4;
-    border: 2px solid  #000000;
+    background-color: #274060 !important;
     padding: 10px;
     margin: 10px;
     width: 90%;
 }
 
 .contact-form{
-    background-color: #e5e6e4;
-    border: 2px solid  #000000;
+    background-color: #274060;
     padding: 10px;
-    margin: 10px;
     width: 90%;
 }
 
 .contact-form textarea{
-    width: 90%;
-    height: 100px;
-    margin: 10px;
+    width: 88% !important;
 }
 
 .contact-form input[type="submit"]{
@@ -787,9 +774,8 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     margin: 10px;
     background-color: lightgreen;
     border: 1px solid black;
-    border-radius: 10px;
-    text-align: center; 
-    line-height: 0px; 
+    border-radius: 6px;
+
 }
 
 
@@ -800,7 +786,7 @@ input[type="submit"] {
     background-color: lightgreen;
 }
 
-.socialmedia, .kontakt{
+.socialmedia, .contact{
     background-color: #e5e6e4;
     border: 1px solid  #000000;
     padding: 10px;
@@ -884,7 +870,6 @@ main {
 }
 
 .movie-extra-info p span{
-    
     color: #fff;
     font-weight: bold;
 }
@@ -1036,36 +1021,13 @@ main {
     
     /* detaljsida */
 
-    .movie-details {
-        flex-wrap: wrap;
-    }
-
-    .image img{
-        max-width: 100%;
-        height: auto;
-        border: 2px solid  #000000;
-    }
-    .image{
-        width: 18%;
-        margin: 10px;
-    }
-
-    .story{
-        width: 70%;
-        text-align: left;
-        padding-top: 20px;
-        margin: 10px;
-        padding: 20px;
-    }
-
     .reviews{
-        width: 76%;
-        margin: 10px;
+        padding: 40px;
     }
 
     .writerreview {
-        padding: 10px;
-        margin: 10px;
+        padding: 20px;
+        margin: 20px;
     }
 
 
@@ -1082,7 +1044,7 @@ main {
         width: 40%;
     }
     
-    .kontakt{
+    .contact{
         width: 40%;
     }
     
@@ -1199,16 +1161,13 @@ main {
         align-items: top;
         margin-left: 70px !important;
     }
-
-
-
 }
 
 
 
 @media screen and (min-width: 1300px) {
-    header {
-        padding: 70px;
+    .startpage-header {
+        background-position: center bottom -400px;
     }
 
     .moviepage-header {
@@ -1221,7 +1180,7 @@ main {
     }
     
     nav {
-        height: 80px;
+        height: 70px;
     }
 
     /*  startsida*/
@@ -1327,10 +1286,10 @@ main {
     .info-main {
         text-align: start;
         display: flex;
+        margin: 0 20px 0 20px;
     }
 
     #info-list {
-        
         margin: 40px;
     }
     
@@ -1342,21 +1301,20 @@ main {
 
     .story {
         width: 40%;
+        margin: 80px 35px 20px 20px;
+        text-align: center;
     }
-
 
     .reviews {
-        width: 96%;
-        margin: 0;
-        padding: 0;
+        width: 84%;
+        margin: 20px;
+        padding: 20px 80px 20px 80px;
     }
-
 
     .writerreview {
         border: none; 
         
     }
-
 
 
     
@@ -1367,18 +1325,6 @@ main {
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: space-around;
-    }
-
-    .history {
-        font-size: 18px;
-    }
-
-    .kontakt {
-        font-size: 18px;
-    }
-
-    .socialmedia{
-        font-size: 18px;
     }
 
     .contact-form{
