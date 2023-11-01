@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const image = moviePage.querySelector('.image img');
         const title = moviePage.querySelector('.movie-header');
         const storyText = moviePage.querySelector('.story p');
-        // const gradeText = moviePage.querySelector('.grade p');
         const ratingsAmount = moviePage.querySelector('.number-of-ratings h6');
         const ratingSpans = moviePage.querySelectorAll(".rating-number");
         const ratingMark = moviePage.querySelector(".rating-mark");
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         image.alt = "Filmposter";
         title.textContent = movie.Title;
         storyText.textContent = movie.Plot;
+
 
         // Check if cmdbMovie exists and has a cmdbScore
         if (cmdbMovie && cmdbMovie.cmdbScore) {
@@ -79,6 +79,48 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
 
+        function updateMovieInfo() {
+            const infoPosterH3 = moviePage.querySelector('.info-poster h3');
+            const infoPoster = moviePage.querySelector('.mini-poster');
+            const imdbScore = moviePage.querySelector('#imdb-score');
+            const tomatoScore = moviePage.querySelector('#tomato-score');
+            
+            const year = moviePage.querySelector('#year');
+            const runTime = moviePage.querySelector('#run-time');
+            const genre = moviePage.querySelector('#genre');
+            const language = moviePage.querySelector('#language');
+            const director = moviePage.querySelector('#director');
+            const writer = moviePage.querySelector('#writer');
+
+            infoPoster.src = movie.Poster;
+            infoPosterH3.textContent = movie.Title;
+            imdbScore.textContent = movie.Ratings[0].Value;
+            tomatoScore.textContent = movie.Ratings[1].Value;
+            
+            function makeFirstWordBold(text) {
+                var words = text.split(":");
+                if (words.length === 2) {
+                    let word1 = words[0].trim();
+                    let boldElement = document.createElement("b");
+                    boldElement.textContent = word1;
+                    let textNode = document.createTextNode(`: ${words[1]}`);
+                    let container = document.createElement("span");
+                    container.appendChild(boldElement);
+                    container.appendChild(textNode);
+                    
+                    return container;
+                }
+                return text;
+            }
+             
+            year.appendChild(makeFirstWordBold(`Year: ${movie.Year}`));
+            runTime.appendChild(makeFirstWordBold(`Runtime: ${movie.Runtime}`))
+            genre.appendChild(makeFirstWordBold(`Genre: ${movie.Genre}`));
+            language.appendChild(makeFirstWordBold(`Language: ${movie.Language}`));
+            director.appendChild(makeFirstWordBold(`Director: ${movie.Director}`));
+            writer.appendChild(makeFirstWordBold(`Writer: ${movie.Writer}`));
+        }
+
         function addNextReview() {
             for (let i = 0; i < textReviews.length; i++) {
                 if (i < reviewsPerPage * currentPage && i >= reviewsPerPage * (currentPage - 1)) {
@@ -89,7 +131,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             }
         }
-
+        updateMovieInfo();
         addNextReview();
 
         const btnNext = document.querySelector(".btn-next");
