@@ -409,7 +409,7 @@ footer {
 .rating-stats {
     display: flex;
     flex-direction: column;
-    width: 22%;
+    width: 45%;
     align-items: center;
 }
 
@@ -422,13 +422,12 @@ footer {
 /* Rating-scale - Section */
 
 .rating-no1 {
-    margin: 10px 0 5px 135px;
-    width: 70%;
+    width: 150%;
 }
 
 .rating-scale {
     display: flex;
-    width: 140%;
+    width: 120%;
     height: 24px;
     background: linear-gradient(to right, red, green);
     border: 1px solid black;
@@ -699,7 +698,7 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     border: 2px solid #000;
 }
 
-/* Stil för dold klass */
+/* Style for hidden class */
 .hidden {
     display: none;
 }
@@ -714,58 +713,59 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
 }
 
 
-/* Om oss sida */
+/* About us page */
 
 .container{
+    margin: 20px;
+    background-color: #1d2d44;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
+    color: white;
 }
 
 .history{
-    background-color: #e5e6e4;
+    background-color: #274060;
     border: 2px solid  #000000;
-    padding: 10px;
+    padding: 20px;
+    text-align: start;
+    line-height: 1.5;
+    font-size: 18px;
     margin: 10px;
     width: 90%;
 }
 
-.kontakt{
-    background-color: #e5e6e4;
+.contact {
+    background-color: #274060 !important;
     border: 2px solid  #000000;
     padding: 10px;
     margin: 10px;
     width: 90%;
+    font-size: 18px;
 }
 
-.kontakt iframe {
+.contact iframe {
     width: 90%;
-    height: auto;
     border: none;
 }
 
 .socialmedia{
-   background-color: #e5e6e4;
-    border: 2px solid  #000000;
+    background-color: #274060 !important;
     padding: 10px;
     margin: 10px;
     width: 90%;
 }
 
 .contact-form{
-    background-color: #e5e6e4;
-    border: 2px solid  #000000;
+    background-color: #274060;
     padding: 10px;
-    margin: 10px;
     width: 90%;
 }
 
 .contact-form textarea{
-    width: 90%;
-    height: 100px;
-    margin: 10px;
+    width: 88% !important;
 }
 
 .contact-form input[type="submit"]{
@@ -774,9 +774,8 @@ a.one.enable, a.two.enable, a.three.enable, a.four.enable {
     margin: 10px;
     background-color: lightgreen;
     border: 1px solid black;
-    border-radius: 10px;
-    text-align: center; 
-    line-height: 0px; 
+    border-radius: 6px;
+
 }
 
 
@@ -787,7 +786,7 @@ input[type="submit"] {
     background-color: lightgreen;
 }
 
-.socialmedia, .kontakt{
+.socialmedia, .contact{
     background-color: #e5e6e4;
     border: 1px solid  #000000;
     padding: 10px;
@@ -1045,7 +1044,7 @@ main {
         width: 40%;
     }
     
-    .kontakt{
+    .contact{
         width: 40%;
     }
     
@@ -1326,18 +1325,6 @@ main {
         flex-wrap: wrap;
         align-items: flex-start;
         justify-content: space-around;
-    }
-
-    .history {
-        font-size: 18px;
-    }
-
-    .kontakt {
-        font-size: 18px;
-    }
-
-    .socialmedia{
-        font-size: 18px;
     }
 
     .contact-form{
