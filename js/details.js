@@ -1,6 +1,7 @@
 import { cmdbUrl } from "./app.js";
 import { getMovieById } from "./app.js";
 import { getCmdbMoviesById } from "./app.js";
+import { setGrade } from "./app.js";
 
 //Detaljsidan
 document.addEventListener("DOMContentLoaded", async function () { 
@@ -204,7 +205,6 @@ document.addEventListener("submit", async function (e) {
             }
         }
     }
-
     reviewMovie(movieId, reviewer, score, review);
     submitButton.disabled = true;
     
@@ -234,3 +234,30 @@ async function reviewMovie(movieId, author, score, review) {
     const data = await response.json();
     
 }
+// Select all rating buttons
+const ratingButtons = document.querySelectorAll('.rate-movie a');
+
+// eventlistener till alla betygsknappar
+ratingButtons.forEach(button => {
+    button.addEventListener('click', async function(event) {
+        event.preventDefault();
+
+        const grade = parseInt(this.textContent);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get('id');
+
+        const movieTitle = document.querySelector('.movie-header').textContent;
+        
+        const confirmMessage = `Är du säker att du vill ge filmen ${movieTitle} betyg ${grade}?`;
+        const userConfirmed = confirm(confirmMessage);
+
+        if (userConfirmed) {
+            const response = await setGrade(movieId, grade);
+
+            ratingButtons.forEach(button => {
+                button.classList.add('disabled');
+            });
+        }
+    });
+});

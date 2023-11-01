@@ -1,5 +1,6 @@
 import { cmdbUrl } from "./app.js";
 import { getMovieById } from "./app.js";
+import { setGrade } from "./app.js";
 
 
 
@@ -121,7 +122,7 @@ document.addEventListener("click", async function (event) {
     }
 });
 
-async function setGrade(id, grade) {
+/* async function setGrade(id, grade) {
     const endpoint = "/movies/rate/" + id + "/" + grade;
     const response = await fetch(cmdbUrl + endpoint, {
         method: 'PUT',
@@ -135,7 +136,7 @@ async function setGrade(id, grade) {
     });
     const data = await response.json();
     
-}
+} */
 
 //alla betygsknappar i en array
 const ratingButtons = [

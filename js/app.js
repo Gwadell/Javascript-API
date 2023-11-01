@@ -112,3 +112,18 @@ export async function getMovieById(id) {
     const data = await response.json();
     return data;
 } 
+
+export async function setGrade(id, grade) {
+    const endpoint = "/movies/rate/" + id + "/" + grade;
+    const response = await fetch(cmdbUrl + endpoint, {
+        method: 'PUT',
+        body: JSON.stringify({ 
+            imdbID: id,
+            score: grade 
+        }),
+        headers: {
+            'Content-Type': 'application/json; charset=utf-8'
+        }, 
+    });
+    const data = await response.json();
+}
