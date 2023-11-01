@@ -390,6 +390,7 @@ footer {
 }
 
 .movie-header {
+    margin-top: 20px;
     margin-bottom: 10px;
     font-size: 24px;
 }
@@ -405,9 +406,11 @@ footer {
 .aside-moviedetails {
     display: flex;
     text-align: center;
+    align-items: center;
     flex-direction: column;
     background-color: #274060 !important;
     color: white;
+    margin: 10px;
 }
 
 
@@ -520,23 +523,104 @@ footer {
     font-size: 18px;
 }
 
-/*  Handling  */
+/*  Movie info  */
+
+.movie-info {
+    display: flex;
+    flex-direction: column;
+    max-height: auto;
+    padding: 15px;
+    margin: 10px;
+    text-align: start;
+    border: 1px solid  #000000;
+    background-color: #274060;
+}
+
+.movie-info h3, .story h3, .reviews h3 {
+    font-size: 20px;
+}
+
+.info-poster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background-color: #1d2d44;
+}
+
+.info-poster h3 {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+/* External ratings */
+
+.external-ratings{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.external-logo-imdb {
+    width: 80px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.external-logo-tomato {
+    width: 60px;
+    height: 60px;
+    margin: 0 15px 0 50px
+}
+
+.mini-poster {
+    width: 200px;
+    height: 260px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+/* Main info */
+
+.info-main {
+    background-color: #1d2d44;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+#info-list {
+    margin: 20px;
+    list-style: none;
+}
+
+#info-list li {
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+
+
+/*  Story  */
 .story {
     max-height: auto;
     padding: 15px;
     margin: 10px;
-    border: 2px solid  #000000;
-    background-color: #274060;
-    font-size: 18px;
+    background-color: #1d2d44;
+    font-size: 20px;
+    line-height: 1.6;
+    text-align: center;
 }
-
 
 /*  Reviews  */
 .reviews {
     max-height: auto;
     padding: 5px;
     margin: 10px;
-    border: 2px solid  #000000;
+    border: 1px solid  #000000;
     background-color: #274060;
     font-size: 18px;
 }
@@ -584,10 +668,10 @@ footer {
 .writerreview {
     display: flex;
     flex-direction: column;
-    background-color: #274060; 
+    background-color: #1d2d44; 
     text-align: center;
     margin: 10px;
-    border: 2px solid  #000000;
+    border: 1px solid  white;
     padding: 20px;
 }
 
@@ -1063,12 +1147,12 @@ input[type="submit"] {
         padding: 10px;
     }
 
-    #genre{
+    .genre-select{
         font-size: 18px;
         padding: 5px;
     }
 
-    #genre option{
+    .genre-select option{
         font-size: 18px;
         padding: 5px;
     }
@@ -1188,7 +1272,6 @@ input[type="submit"] {
     }
 
 
-
     /* detaljsida */
 
     .aside-moviedetails {
@@ -1232,17 +1315,63 @@ input[type="submit"] {
     .details-main-content {
         display: flex;
         flex-direction: column;
-        height: 100vh;
         width: 70%;
-        background-color: #335C81;
+        background-color: #1d2d44;
         align-items: center;
-        padding: 15px 0 25px 0;
+        padding: 10px 0 25px 0;
+    }
+
+    .movie-info {
+        width: 93.5%;
+    }
+
+    .info-poster {
+        display: flex;
+        flex-direction: row;
+        margin: 20px 55px 20px 55px;
+        justify-content: space-evenly;
+        padding: 25px;
+        background-color: #1d2d44;
+    }
+
+    .info-poster h3 {
+        margin-top: 0;
+    }
+    
+    .external-logo-imdb {
+        width: 100px;
+        height: 60px;
+        margin-right: 20px;
+    }
+    
+    .external-logo-tomato {
+        width: 80px;
+        height: 72px;
+        margin: 0 20px 0 80px
+    }
+
+    /* Main info */
+    
+    .info-main {
+        text-align: start;
+        display: flex;
+    }
+
+    #info-list {
+        
+        margin: 40px;
+    }
+    
+    #info-list li {
+        font-size: 22px;
+        margin-bottom: 40px;
+        
     }
 
     .story {
-        width: 96%;
-        padding: 0;
+        width: 40%;
     }
+
 
     .reviews {
         width: 96%;
@@ -1254,11 +1383,12 @@ input[type="submit"] {
     .writerreview {
         width: 20%;
         margin: 20px 0;
-        padding: 20px;
+        padding: 30px 20px 30px 20px;
         position: absolute;
         z-index: 1;
         top: 130%;
         left: 3%;
+        border: none;
     }
 
 
