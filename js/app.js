@@ -35,19 +35,33 @@ searchtext.addEventListener("input", async function () {
         document.querySelector('.popup').style.display = 'block';
 
         const movies = await displaySearchResults(text); 
-
-        movieResults.innerHTML = '';
         
-        movies.forEach(movie => {
+        movieResults.innerHTML = '';
+        // visar filmerna
+        movies.forEach( async movie => {
+            let id = movie.imdbID;
+            const movieInfo =  await getMovieById(id);
+
             const movieDiv = document.createElement("div"); 
             movieDiv.classList.add("movie"); 
-
-            movieDiv.innerHTML = `
-                <img src="${movie.Poster}" alt="${movie.Title} poster">  
-                <h2> <a href=moviePage.html?id=${movie.imdbID}> ${movie.Title}<a/></h2>
+            movieDiv.innerHTML = `  
+            <img src="${movie.Poster}" alt="${movie.Title} bild">
+                <section class="movie-extra-info">
+                <p> <span>Titel: </span><a href=moviePage.html?id=${movie.imdbID}> ${movie.Title}<a/></p>
+                <p> <span>År: </span> ${movie.Year}</p>
+                <p><span>Längd: </span> ${movieInfo.Runtime}</p>
+                <p><span>Genre: </span> ${movieInfo.Genre}</p>
+                </section>
             `;
-            movieResults.appendChild(movieDiv); 
+            
+            const img = movieDiv.querySelector('img');
+            img.addEventListener('click', function() {
+                window.location.href = `moviePage.html?id=${movie.imdbID}`;
+            });
+
+            movieResults.appendChild(movieDiv);
         });
+
         }
         if (text.trim() === '') { 
             document.querySelector('.popup').style.display = 'none';
