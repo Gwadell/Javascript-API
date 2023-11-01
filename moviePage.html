@@ -84,6 +84,39 @@
                         </ul>
                     </div>
                 </section>
+                <div class="writerreview">
+                    <form action="/action_page.php" method="post" id="review-form">
+                        <h3>Skriv en recension</h3>
+    
+                        <label for="fname">Namn:</label> <br>
+                        <input type="text" id="fname" name="fname" placeholder="Ditt Namn..." required>
+                        <br> <br>
+    
+                        <label>Sätt ett betyg på filmen: </label>
+                            <div class="rating">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="one">1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="two">2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="three">3</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="four">4</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        <br> 
+                        <label for="review">Recension:</label>
+                        <br>
+                        <textarea id="review" name="review" placeholder="Skriv din recension här..." required></textarea>
+                        <input type="submit" value="Skicka recension" id="submit-button">
+                    </form>
+                    <div id="confirmation-message" class="hidden">Tack för din recension!</div>
+                </div>
             </aside>
             <section class="details-main-content">
                 <section class="movie-info">
@@ -123,39 +156,6 @@
                     <button type="button" class="btn-next">Nästa</button>
                 </div>
             </section>
-            <div class="writerreview">
-                <form action="/action_page.php" method="post" id="review-form">
-                    <h3>Skriv en recension</h3>
-
-                    <label for="fname">Namn:</label> <br>
-                    <input type="text" id="fname" name="fname" placeholder="Ditt Namn..." required>
-                    <br> <br>
-
-                    <label>Sätt ett betyg på filmen: </label>
-                        <div class="rating">
-                            <ul>
-                                <li>
-                                    <a href="#" class="one">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="two">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="three">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="four">4</a>
-                                </li>
-                            </ul>
-                        </div>
-                    <br> 
-                    <label for="review">Recension:</label>
-                    <br>
-                    <textarea id="review" name="review" placeholder="Skriv din recension här..." required></textarea>
-                    <input type="submit" value="Skicka recension" id="submit-button">
-                </form>
-                <div id="confirmation-message" class="hidden">Tack för din recension!</div>
-            </div>
         </div>  
     </main>
     <footer>
