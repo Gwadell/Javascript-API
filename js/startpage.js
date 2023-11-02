@@ -49,7 +49,7 @@ async function getToplist(limit) {
 }
 
 // Method to create three new movies
-let movieButton;
+//let movieButton;
 let numberOfCreatedMovies = 0;
 function createANewMovie () {
     const startpage = document.querySelector(".startpage");
@@ -85,7 +85,12 @@ if (moreBtn) {
 
 // Ratingbuttons click event
 document.addEventListener("click", async function (event) {
-    
+    if (
+    event.target.classList.contains("one") ||
+    event.target.classList.contains("two") ||
+    event.target.classList.contains("three") ||
+    event.target.classList.contains("four")
+    ) { 
     const targetClass = event.target.classList[0];
     const ratingButton = ratingButtons.find(button => button.className === targetClass);
 
@@ -112,6 +117,10 @@ document.addEventListener("click", async function (event) {
         }
         gradedMovieId = movieId;
     }
+    const toggleRatingBtnsInterval = setInterval(() => {
+        toggleRatingBtns();
+    }, 1);
+}
 });
 
 //All ratingbuttons in an array
@@ -124,6 +133,7 @@ const ratingButtons = [
 
 //Method to toggle the ratingbuttons when clicked
 let gradedMovieId;
+let movieButton;
 function toggleRatingBtns () {
     const allMovieElements = document.querySelectorAll(".movie");
     for (let i = 0; i < allMovieElements.length; i++) {
@@ -131,7 +141,7 @@ function toggleRatingBtns () {
             const ratingButtons = allMovieElements[i].querySelectorAll(".rating a")
             movieButton.forEach((button) => {
                 button.classList.remove('disabled');
-            });
+            }); 
             ratingButtons.forEach((button) => {
                 button.classList.add('disabled');
             });
@@ -203,7 +213,5 @@ const displayMovieInterval = setInterval(() => {
     getAndDisplayMovies(10 + numberOfCreatedMovies);
 }, 3000);
 
-const toggleRatingBtnsInterval = setInterval(() => {
-    toggleRatingBtns();
-}, 520);
+
 

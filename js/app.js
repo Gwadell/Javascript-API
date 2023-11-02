@@ -1,6 +1,8 @@
 export const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 export const omdbUrl = "https://www.omdbapi.com/?"
 
+
+
 export function handleError(error) {
     console.error("An error occurred:", error);
 }
@@ -49,7 +51,6 @@ searchtext.addEventListener("input", async function () {
     text = escapeHTML(text); //remove html
 
     if (text.trim() !== '') { 
-        console.log(text); 
         document.querySelector('.popup').style.display = 'block';
 
         const movies = await displaySearchResults(text); 
