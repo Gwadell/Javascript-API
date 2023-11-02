@@ -1,5 +1,6 @@
 import { cmdbUrl } from "./app.js";
 import { getMovieById } from "./app.js";
+import { setGrade } from "./app.js";
 
 
 // Retrieves movies from the top list and displays them on the startpage
