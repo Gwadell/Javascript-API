@@ -218,25 +218,34 @@ document.addEventListener("submit", async function (e) {
     const reviewer = document.querySelector("#fname").value;
     const review = document.querySelector("#review").value;
 
+    let reviewerHasWrittenReview = false;
+
     if (movie) {
         for (let i = 0; i < movie.count; i++) {
             if (movie.reviews[i].reviewer === reviewer) {
                 submitButton.disabled = true;
-                confirmationMessage.style.display = "none";
+                reviewerHasWrittenReview = true;
                 alert("Du har redan skrivit en recension för den här filmen.");
+                confirmationMessage.style.display = "none";
+                document.querySelector("#review").value = "";
+                document.querySelector("#fname").value = "";  
                 break;
             }
         }
 
+    if (!reviewerHasWrittenReview) {
         reviewMovie(movieId, reviewer, score, review);
         submitButton.disabled = true;
         
         confirmationMessage.style.display = "block";
-        
+        document.querySelector("#review").value = "";
+        document.querySelector("#fname").value = ""; 
 
         setTimeout(function () {
             confirmationMessage.style.display = "none";
         }, 3000);
+    }
+    
     }
 });
 
