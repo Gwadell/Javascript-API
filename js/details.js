@@ -226,10 +226,6 @@ document.addEventListener("submit", async function (e) {
                 submitButton.disabled = true;
                 reviewerHasWrittenReview = true;
                 alert("Du har redan skrivit en recension för den här filmen.");
-                confirmationMessage.style.display = "none";
-                document.querySelector("#review").value = "";
-                document.querySelector("#fname").value = "";  
-                break;
             }
         }
 
@@ -238,14 +234,13 @@ document.addEventListener("submit", async function (e) {
         submitButton.disabled = true;
         
         confirmationMessage.style.display = "block";
-        document.querySelector("#review").value = "";
-        document.querySelector("#fname").value = ""; 
 
         setTimeout(function () {
             confirmationMessage.style.display = "none";
         }, 3000);
     }
-    
+    document.querySelector("#review").value = "";
+    document.querySelector("#fname").value = ""; 
     }
 });
 
