@@ -2,13 +2,7 @@ import { cmdbUrl } from "./app.js";
 import { getMovieById } from "./app.js";
 
 
-
-//hämtar och visar 10 filmer 
-getAndDisplayMovies(10);
-
-
-
-//Hämtar filmer från topplistan och visar dem på startsidan
+// Retrieves movies from the top list and displays them on the startpage
 async function getAndDisplayMovies(numberofMovies) {
     const cmdbMovies = await getToplist(numberofMovies);
     
@@ -38,17 +32,22 @@ async function getAndDisplayMovies(numberofMovies) {
         cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
         summary.textContent = omdbMovie.Plot;
     }
+
+    
+    
 }
+
+//Retrieves and displays 10 movies
+getAndDisplayMovies(10);
 
 
 // Retrieve the toplist 
- async function getToplist(limit) {
+async function getToplist(limit) {
     const endpoint = "/toplists?sort=desc&limit=" +limit +"&page=1&countlimit=2";
     const response = await fetch(cmdbUrl + endpoint);
     const data = await response.json();
     return data;
 }
-
 
 // Method to create three new movies
 let movieButton;
@@ -75,20 +74,17 @@ function createANewMovie () {
     }
 }
 
-
-
-//hämtar mer filmer knappen och skapar 3 nya filmer
+// Retrieve more movies button click event -> Creates three new movies
 const moreBtn = document.querySelector(".more-btn")
 if (moreBtn) {
     moreBtn.addEventListener("click", function (event) {
-    
         createANewMovie();
         getAndDisplayMovies(10 + numberOfCreatedMovies);
     });
 }
 
 
-//klicka på betygsknapparna
+// Ratingbuttons click event
 document.addEventListener("click", async function (event) {
     
     const targetClass = event.target.classList[0];
@@ -100,7 +96,7 @@ document.addEventListener("click", async function (event) {
         const movieId = movieElement.dataset.movieId;
         const grade = ratingButton.grade;
         
-        //hämtat titeln på filmen
+        // Retrieves the movie title
         const movieTitle = movieElement.querySelector('h3 a').textContent;
         
         const confirmMessage = `Är du säker att du vill ge filmen ${movieTitle} betyg ${grade}?`;
@@ -109,18 +105,17 @@ document.addEventListener("click", async function (event) {
         if (userConfirmed) {
             const response = await setGrade(movieId, grade);
             
-            //lägger till klassen disabled på betygsknapparna
+            // Adds the class 'disabled' to the buttons
             movieButton = movieElement.querySelectorAll(".rating a");
-            
-                movieButton.forEach((button) => {
-                    button.classList.add('disabled');
-                });
-                
+            movieButton.forEach((button) => {
+                button.classList.add('disabled');
+            });
         }
         gradedMovieId = movieId;
     }
 });
 
+// Function to add a grade to the API
 async function setGrade(id, grade) {
     const endpoint = "/movies/rate/" + id + "/" + grade;
     const response = await fetch(cmdbUrl + endpoint, {
@@ -137,7 +132,7 @@ async function setGrade(id, grade) {
     
 }
 
-//alla betygsknappar i en array
+//All ratingbuttons in an array
 const ratingButtons = [
     { grade: 1, className: "one", element: document.querySelector('.one') },
     { grade: 2, className: "two", element: document.querySelector('.two') },
@@ -145,7 +140,7 @@ const ratingButtons = [
     { grade: 4, className: "four", element: document.querySelector('.four') }
 ];
 
-//Metod för att disabla betygskanpparna vid klick
+//Method to toggle the ratingbuttons when clicked
 let gradedMovieId;
 function toggleRatingBtns () {
     const allMovieElements = document.querySelectorAll(".movie");
@@ -162,7 +157,7 @@ function toggleRatingBtns () {
     }
 }
 
-//läs mer kanpp 
+// Read more-button click event 
 document.addEventListener("click", function (event) { 
     const expandButton = event.target; 
     
@@ -179,7 +174,7 @@ document.addEventListener("click", function (event) {
     }
 });
 
-///Hämtar senaste recensionen
+// Gets the latest review from the API
 async function getLatestReview () {
     const endpoint = "/movies/latest";
     const response = await fetch(cmdbUrl + endpoint);
@@ -187,7 +182,7 @@ async function getLatestReview () {
     return data;
 }
 
-//Metod för att visa den senast skrivna recensionen
+// Function to display the latest review
 async function displayLatestReview () {
     const latestReview = await getLatestReview();
     const movie = await getMovieById(latestReview.imdbID);
@@ -206,11 +201,15 @@ async function displayLatestReview () {
 }
 
 displayLatestReview();
+
 const latestReviewInterval = setInterval(displayLatestReview, 3000);
 
-//uppdaterar topplistan och toggleknapparna var 3e sekund
+// Refreshes the toplist every 3 seconds
 const displayMovieInterval = setInterval(() => {
     getAndDisplayMovies(10 + numberOfCreatedMovies);
+}, 3000);
+
+const toggleRatingBtnsInterval = setInterval(() => {
     toggleRatingBtns();
-}, 3000); 
+}, 100);
 

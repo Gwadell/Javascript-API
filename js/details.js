@@ -38,46 +38,6 @@ document.addEventListener("DOMContentLoaded", async function () {
             ratingNo1.textContent = "Filmen finns inte i Cmdb. Skriv en rececion eller sätt ett betyg för att lägga till den.";
         }
 
-        // Makes the rating scale respond to the movies average rating 
-        const decimalOfScore = cmdbMovie.cmdbScore / 4;
-        const percentageOfScore = decimalOfScore * 100;
-        ratingMark.style.marginLeft = `${percentageOfScore}%`;
-        
-
-        // Sets the rating detail spans to the correct rating numbers
-        const availableScores = [4, 3, 2, 1];
-        let allMovieScores = cmdbMovie.categorizedScores;
-
-        for (let i = 0; i < availableScores.length; i++) {
-            const scoreData = allMovieScores.find(score => score.score === availableScores[i]);
-            if (scoreData) {
-                ratingSpans[i].textContent = scoreData.count;
-            } else {
-                ratingSpans[i].textContent = 0;
-            }
-        }
-
-        // Asignes the spans the correct width so the color corresponds with the amount of votes.
-        for (let i = 0; i < ratingSpans.length; i++) {
-            const decimalOfVotes = parseFloat(ratingSpans[i].textContent) / cmdbMovie.count
-            const percentageOfVotes = decimalOfVotes * 100;  //Multiply by 100 to get the floatnumber into a percentage
-            spanFills[i].style.width = `${percentageOfVotes}%`;
-        }
-
-        let rating = 1;
-        const reviewsPerPage = 5;
-        let textReviews = []
-        let currentPage = 1;
-
-        // Check if cmdbMovie exists and has reviews
-        if (cmdbMovie && cmdbMovie.reviews) {
-            for (let i = 0; i < cmdbMovie.reviews.length; i++) {
-                if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
-                    textReviews.push(cmdbMovie.reviews[i]);
-                }
-            }
-        }
-
         function updateMovieInfo() {
             const infoPosterH3 = moviePage.querySelector('.info-poster h3');
             const infoPoster = moviePage.querySelector('.mini-poster');
@@ -93,8 +53,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             infoPoster.src = movie.Poster;
             infoPosterH3.textContent = movie.Title;
-            imdbScore.textContent = movie.Ratings[0].Value;
-            tomatoScore.textContent = movie.Ratings[1].Value;
+            if (movie.Ratings && movie.Ratings[1]) {
+                imdbScore.textContent = movie.Ratings[0].Value;
+                tomatoScore.textContent = movie.Ratings[1].Value;
+            } 
+            else {
+                imdbScore.textContent = movie.Ratings[0].Value;
+            }
+            
             
             function makeFirstWordBold(text) {
                 var words = text.split(":");
@@ -119,49 +85,94 @@ document.addEventListener("DOMContentLoaded", async function () {
             director.appendChild(makeFirstWordBold(`Director: ${movie.Director}`));
             writer.appendChild(makeFirstWordBold(`Writer: ${movie.Writer}`));
         }
-
-        function addNextReview() {
-            for (let i = 0; i < textReviews.length; i++) {
-                if (i < reviewsPerPage * currentPage && i >= reviewsPerPage * (currentPage - 1)) {
-                    const reviewItem = document.createElement("li");
-                    reviewItem.textContent = `Recension ${rating}: ${textReviews[i].review}`;
-                    reviewList.appendChild(reviewItem);
-                    rating++;
-                }
-            }
-        }
         updateMovieInfo();
-        addNextReview();
 
-        const btnNext = document.querySelector(".btn-next");
-        btnNext.addEventListener("click", function (event) {
-            event.preventDefault();
-            if ((rating - 1) % 5 === 0) {
-                // Ta bort befintliga recensioner
-                while (reviewList.firstChild) {
-                    reviewList.removeChild(reviewList.firstChild);
+
+        if(cmdbMovie) {
+            // Makes the rating scale respond to the movies average rating 
+            const decimalOfScore = cmdbMovie.cmdbScore / 4;
+            const percentageOfScore = decimalOfScore * 100;
+            ratingMark.style.marginLeft = `${percentageOfScore}%`;
+            
+
+            // Sets the rating detail spans to the correct rating numbers
+            const availableScores = [4, 3, 2, 1];
+            let allMovieScores = cmdbMovie.categorizedScores;
+
+            for (let i = 0; i < availableScores.length; i++) {
+                const scoreData = allMovieScores.find(score => score.score === availableScores[i]);
+                if (scoreData) {
+                    ratingSpans[i].textContent = scoreData.count;
+                } else {
+                    ratingSpans[i].textContent = 0;
                 }
-                currentPage++;
-                addNextReview();
             }
-        });
 
-        const btnPrev = document.querySelector(".btn-prev");
-        btnPrev.addEventListener("click", function (event) {
-            event.preventDefault();
+            // Asignes the spans the correct width so the color corresponds with the amount of votes.
+            for (let i = 0; i < ratingSpans.length; i++) {
+                const decimalOfVotes = parseFloat(ratingSpans[i].textContent) / cmdbMovie.count
+                const percentageOfVotes = decimalOfVotes * 100;  //Multiply by 100 to get the floatnumber into a percentage
+                spanFills[i].style.width = `${percentageOfVotes}%`;
+            }
 
-            if (currentPage > 1) {
-                // Ta bort befintliga recensioner
-                while (reviewList.firstChild) {
-                    reviewList.removeChild(reviewList.firstChild);
+            let rating = 1;
+            const reviewsPerPage = 5;
+            let textReviews = []
+            let currentPage = 1;
+
+            // Check if cmdbMovie exists and has reviews
+            if (cmdbMovie && cmdbMovie.reviews) {
+                for (let i = 0; i < cmdbMovie.reviews.length; i++) {
+                    if (cmdbMovie.reviews[i] && cmdbMovie.reviews[i].review) {
+                        textReviews.push(cmdbMovie.reviews[i]);
+                    }
                 }
-                
-                const test = (currentPage * reviewsPerPage) - (rating - 1)
-                rating = rating - 10 + test;
-                currentPage--;
-                addNextReview();
             }
-        });
+
+
+            function addNextReview() {
+                for (let i = 0; i < textReviews.length; i++) {
+                    if (i < reviewsPerPage * currentPage && i >= reviewsPerPage * (currentPage - 1)) {
+                        const reviewItem = document.createElement("li");
+                        reviewItem.textContent = `Recension ${rating}: ${textReviews[i].review}`;
+                        reviewList.appendChild(reviewItem);
+                        rating++;
+                    }
+                }
+            }
+
+            addNextReview();
+
+            const btnNext = document.querySelector(".btn-next");
+            btnNext.addEventListener("click", function (event) {
+                event.preventDefault();
+                if ((rating - 1) % 5 === 0) {
+                    // Ta bort befintliga recensioner
+                    while (reviewList.firstChild) {
+                        reviewList.removeChild(reviewList.firstChild);
+                    }
+                    currentPage++;
+                    addNextReview();
+                }
+            });
+
+            const btnPrev = document.querySelector(".btn-prev");
+            btnPrev.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                if (currentPage > 1) {
+                    // Ta bort befintliga recensioner
+                    while (reviewList.firstChild) {
+                        reviewList.removeChild(reviewList.firstChild);
+                    }
+                    
+                    const test = (currentPage * reviewsPerPage) - (rating - 1)
+                    rating = rating - 10 + test;
+                    currentPage--;
+                    addNextReview();
+                }
+            });
+        }
     }
 }); 
 

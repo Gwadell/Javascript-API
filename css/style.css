@@ -800,8 +800,6 @@ main {
     background-color: #f0f0f0;
     color: #000;
     padding-top: 10px;
-    
-    
 }
 
 .movie-results{
@@ -1021,8 +1019,8 @@ main {
     
     /* detaljsida */
 
-    .reviews{
-        padding: 40px;
+    .reviews {
+        padding: 60px !important;
     }
 
     .writerreview {
@@ -1306,7 +1304,7 @@ main {
     }
 
     .reviews {
-        width: 84%;
+        width: 86.5%;
         margin: 20px;
         padding: 20px 80px 20px 80px;
     }
