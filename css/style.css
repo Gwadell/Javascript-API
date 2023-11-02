@@ -863,7 +863,7 @@ main {
 .movie-extra-info p{
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 17px;
     color: #ccc;
     padding: 5px;
 
@@ -1105,7 +1105,7 @@ main {
         margin-left: 50px!important;
     }
     .movie-extra-info p{
-        font-size: 18px;
+        font-size: 20px;
     
     }
 

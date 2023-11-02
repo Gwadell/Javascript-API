@@ -1,43 +1,62 @@
 export const cmdbUrl = "https://grupp6.dsvkurs.miun.se/api"
 export const omdbUrl = "https://www.omdbapi.com/?"
 
+export function handleError(error) {
+    console.error("An error occurred:", error);
+}
+
 async function getApiKey(){
     const endpioint = "/keys/omdb/bc432b7d-e136-4b40-937b-dfb423522505";
-    const response = await fetch(cmdbUrl + endpioint);
-    const data = await response.json();
-    return data.apiKey;
+    try {
+        const response = await fetch(cmdbUrl + endpioint);
+        const data = await response.json();
+        return data.apiKey;
+    } catch (error) {
+        handleError(error)
+    }
 } 
 
 
 export async function displaySearchResults(title) {
-    const movie = await getListMoviesByTitle(title); 
-    return movie.Search || []; 
+    try {
+        const movie = await getListMoviesByTitle(title); 
+        return movie.Search || [];
+    } catch (error) {
+        handleError(error)
+        return [];
+    }
+     
 }
 
 async function getListMoviesByTitle(title) {
     const apiKey = await getApiKey();
     const endpoint = "s=" + title + "&apikey=";
-    const response = await fetch(omdbUrl + endpoint + apiKey);
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(omdbUrl + endpoint + apiKey);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        handleError(error)
+    }
 }
 
 export const searchtext = document.querySelector(".searchtext"); 
 export const searchButton = document.querySelector(".searchbutton"); 
 export const movieResults = document.querySelector(".movie-results"); 
 
-//Visar filmer samtidigt som jag skriver i sökfältet
+//show movies in the popup when user writes in the searchinput
 searchtext.addEventListener("input", async function () { 
-    const text = searchtext.value; 
+    let text = searchtext.value; 
+    text = escapeHTML(text); //remove html
 
-    if (text.trim() !== '') { // så fort det står något i sökfältet så hämtas filmer från api
-
+    if (text.trim() !== '') { 
+        console.log(text); 
         document.querySelector('.popup').style.display = 'block';
 
         const movies = await displaySearchResults(text); 
         
         movieResults.innerHTML = '';
-        // visar filmerna
+        // show movies
         movies.forEach( async movie => {
             let id = movie.imdbID;
             const movieInfo =  await getMovieById(id);
@@ -68,7 +87,7 @@ searchtext.addEventListener("input", async function () {
         }
 });
 
-//för sökknappen på alla sidor
+//cickevent for the searchbutton
 searchButton.addEventListener("click", function (event) {
     event.preventDefault(); 
 
@@ -83,16 +102,7 @@ searchButton.addEventListener("click", function (event) {
     }
 });
 
-
-//hämta filmer från cmdb 
-async function getCmdbMovies() {
-    const endpoint = "/movies";
-    const response = await fetch(cmdbUrl + endpoint);
-    const data = await response.json();
-    return data;
-} 
-
-//hämtar film från cmdb med id 
+//get the fim from cmdb with id
 export async function getCmdbMoviesById(id) {
     try {
         const endpoint = "/movies/" + id;
@@ -100,22 +110,28 @@ export async function getCmdbMoviesById(id) {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.log(error);
+        handleError(error);
     }
 }
 
-//hämtar film från omdb med id
+// get the movie omdb with id 
 export async function getMovieById(id) {
     const apiKey = await getApiKey();
     const endpoint = "i=" + id + "&apikey=";
-    const response = await fetch(omdbUrl + endpoint + apiKey);
-    const data = await response.json();
-    return data;
+    try {
+        const response = await fetch(omdbUrl + endpoint + apiKey);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        handleError(error); 
+    }
+    
 } 
 
 export async function setGrade(id, grade) {
-    const endpoint = "/movies/rate/" + id + "/" + grade;
-    const response = await fetch(cmdbUrl + endpoint, {
+    try {
+        const endpoint = "/movies/rate/" + id + "/" + grade;
+        const response = await fetch(cmdbUrl + endpoint, {
         method: 'PUT',
         body: JSON.stringify({ 
             imdbID: id,
@@ -126,4 +142,15 @@ export async function setGrade(id, grade) {
         }, 
     });
     const data = await response.json();
+    return data; 
+    } catch (error) {
+        handleError(error); 
+    }
+    
 }
+
+export function escapeHTML(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }

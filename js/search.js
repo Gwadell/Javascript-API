@@ -1,11 +1,5 @@
 
-import { displaySearchResults } from "./app.js";
-
-import {searchtext} from "./app.js";
-import {movieResults} from "./app.js";
-import { getMovieById } from "./app.js";
-
-
+import { displaySearchResults,searchtext,movieResults,getMovieById,escapeHTML,handleError } from "./app.js";
 
 // För att visa sökresultat på söksidan
 document.addEventListener("DOMContentLoaded", async function () { 
@@ -16,10 +10,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (text) {
         const movies = await displaySearchResults(text); 
+        searchtext.value = escapeHTML(text);
 
-        //id = movies.imdbID;
-        searchtext.value = text; 
-        
         movieResults.innerHTML = '';
         // visar filmerna
         movies.forEach( async movie => {
@@ -51,4 +43,5 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 });
+
 
