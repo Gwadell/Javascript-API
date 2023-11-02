@@ -1,52 +1,35 @@
-import { cmdbUrl } from "./app.js";
-import { getMovieById } from "./app.js";
-import { setGrade } from "./app.js";
-import { handleError } from "./app.js";
+import { cmdbUrl, getMovieById, setGrade, handleError } from "./app.js";
 
-
-//hämtar och visar 10 filmer 
-getAndDisplayMovies(10);
-
-
-
-//Hämtar filmer från topplistan och visar dem på startsidan
+// Retrieves movies from the toplist and displays them on the startpage
 async function getAndDisplayMovies(numberofMovies) {
-    try {
-        const cmdbMovies = await getToplist(numberofMovies);
+    const cmdbMovies = await getToplist(numberofMovies);
     
-        const startpage = document.querySelector(".startpage");
+    const startpage = document.querySelector(".startpage");
     
-        const movieElements = startpage.querySelectorAll('.movie');
+    const movieElements = startpage.querySelectorAll('.movie');
     
-        for (let i = 0; i < numberofMovies; i++) {
-            const movie = cmdbMovies.movies[i];
-            const movieId = cmdbMovies.movies[i].imdbID;
-            
-            const omdbMovie = await getMovieById(movieId);
-            
-            const movieElement = movieElements[i];
-    
-            movieElement.dataset.movieId = movieId; // Set the movie ID as a data attribute on the movie element
-    
-            const titleLink = movieElement.querySelector('h3 a');
-            const poster = movieElement.querySelector('img');
-            const cmdbScore = movieElement.querySelector('.startpagegrade');
-            const summary = movieElement.querySelector('.summary');
-            
-            titleLink.href = `moviePage.html?id=${movieId}`;
-            titleLink.textContent = `${i + 1}. ${omdbMovie.Title}`;
-            poster.src = omdbMovie.Poster;
-            poster.alt = omdbMovie.Title;
-            cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
-            summary.textContent = omdbMovie.Plot;
-        }
-    } catch (error) {
-        handleError(error); 
+    for (let i = 0; i < numberofMovies; i++) {
+        const movie = cmdbMovies.movies[i];
+        const movieId = cmdbMovies.movies[i].imdbID;
+        
+        const omdbMovie = await getMovieById(movieId);
+        
+        const movieElement = movieElements[i];
+        
+        movieElement.dataset.movieId = movieId; // Set the movie ID as a data attribute on the movie element
+        
+        const titleLink = movieElement.querySelector('h3 a');
+        const poster = movieElement.querySelector('img');
+        const cmdbScore = movieElement.querySelector('.startpagegrade');
+        const summary = movieElement.querySelector('.summary');
+        
+        titleLink.href = `moviePage.html?id=${movieId}`;
+        titleLink.textContent = `${i + 1}. ${omdbMovie.Title}`;
+        poster.src = omdbMovie.Poster;
+        poster.alt = omdbMovie.Title;
+        cmdbScore.textContent = `Betyg: ${movie.cmdbScore}`;
+        summary.textContent = omdbMovie.Plot;
     }
-   
-
-    
-    
 }
 
 //Retrieves and displays 10 movies
@@ -54,7 +37,7 @@ getAndDisplayMovies(10);
 
 
 // Retrieve the toplist 
- async function getToplist(limit) {
+async function getToplist(limit) {
     try {
         const endpoint = "/toplists?sort=desc&limit=" +limit +"&page=1&countlimit=2";
         const response = await fetch(cmdbUrl + endpoint);
@@ -63,7 +46,6 @@ getAndDisplayMovies(10);
     } catch (error) {
         handleError(error); 
     }
-    
 }
 
 // Method to create three new movies
@@ -91,7 +73,7 @@ function createANewMovie () {
     }
 }
 
-// Retrieve more movies button click event -> Creates three new movies
+// Get and create new movies - button click event
 const moreBtn = document.querySelector(".more-btn")
 if (moreBtn) {
     moreBtn.addEventListener("click", function (event) {
@@ -131,23 +113,6 @@ document.addEventListener("click", async function (event) {
         gradedMovieId = movieId;
     }
 });
-
-// Function to add a grade to the API
-async function setGrade(id, grade) {
-    const endpoint = "/movies/rate/" + id + "/" + grade;
-    const response = await fetch(cmdbUrl + endpoint, {
-        method: 'PUT',
-        body: JSON.stringify({ 
-            imdbID: id,
-            score: grade 
-        }),
-        headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-        }, 
-    });
-    const data = await response.json();
-    
-}
 
 //All ratingbuttons in an array
 const ratingButtons = [
@@ -211,28 +176,25 @@ async function getLatestReview () {
 
 // Function to display the latest review
 async function displayLatestReview () {
-    try {
-        const latestReview = await getLatestReview();
-        const movie = await getMovieById(latestReview.imdbID);
-        const reviewInfo = document.querySelector(".latest-review");
-        const title = reviewInfo.querySelector("#title")
-        const score = reviewInfo.querySelector("#score")
-        const reviewer = reviewInfo.querySelector("#reviewer");
-        const date = reviewInfo.querySelector("#date");
-        const reviewText = reviewInfo.querySelector("#review-text");
-    
-        title.textContent = `Titel: ${movie.Title}`;
-        score.textContent = `Betyg: ${latestReview.score}`;
-        reviewer.textContent = `Recensent: ${latestReview.reviewer}`;
-        date.textContent = `Datum: ${latestReview.date}`;
-        reviewText.textContent = `Recension: ${latestReview.review}`;  
-    } catch (error) {
-        handleError(error);
-    }
-    
-}
+    const latestReview = await getLatestReview();
+    const movie = await getMovieById(latestReview.imdbID);
+    const reviewInfo = document.querySelector(".latest-review");
+    const title = reviewInfo.querySelector("#title")
+    const score = reviewInfo.querySelector("#score")
+    const reviewer = reviewInfo.querySelector("#reviewer");
+    const date = reviewInfo.querySelector("#date");
+    const reviewText = reviewInfo.querySelector("#review-text");
 
+    title.textContent = `Titel: ${movie.Title}`;
+    score.textContent = `Betyg: ${latestReview.score}`;
+    reviewer.textContent = `Recensent: ${latestReview.reviewer}`;
+    date.textContent = `Datum: ${latestReview.date}`;
+    reviewText.textContent = `Recension: ${latestReview.review}`;
+}
 displayLatestReview();
+
+
+///   Intervals
 
 const latestReviewInterval = setInterval(displayLatestReview, 3000);
 
@@ -243,5 +205,5 @@ const displayMovieInterval = setInterval(() => {
 
 const toggleRatingBtnsInterval = setInterval(() => {
     toggleRatingBtns();
-}, 100);
+}, 520);
 

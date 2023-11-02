@@ -25,7 +25,6 @@ export async function displaySearchResults(title) {
         handleError(error)
         return [];
     }
-     
 }
 
 async function getListMoviesByTitle(title) {
@@ -44,7 +43,7 @@ export const searchtext = document.querySelector(".searchtext");
 export const searchButton = document.querySelector(".searchbutton"); 
 export const movieResults = document.querySelector(".movie-results"); 
 
-//show movies in the popup when user writes in the searchinput
+//Show movies in the popup when user writes in the searchinput
 searchtext.addEventListener("input", async function () { 
     let text = searchtext.value; 
     text = escapeHTML(text); //remove html
@@ -87,7 +86,7 @@ searchtext.addEventListener("input", async function () {
         }
 });
 
-//cickevent for the searchbutton
+// Clickevent for the searchbutton
 searchButton.addEventListener("click", function (event) {
     event.preventDefault(); 
 
@@ -102,7 +101,7 @@ searchButton.addEventListener("click", function (event) {
     }
 });
 
-//get the fim from cmdb with id
+// Get the fim from cmdb with id
 export async function getCmdbMoviesById(id) {
     try {
         const endpoint = "/movies/" + id;
@@ -114,7 +113,7 @@ export async function getCmdbMoviesById(id) {
     }
 }
 
-// get the movie omdb with id 
+// Get the movie omdb with id 
 export async function getMovieById(id) {
     const apiKey = await getApiKey();
     const endpoint = "i=" + id + "&apikey=";
@@ -127,6 +126,7 @@ export async function getMovieById(id) {
     }
     
 } 
+
 
 export async function setGrade(id, grade) {
     try {
@@ -153,4 +153,4 @@ export function escapeHTML(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
-  }
+}
