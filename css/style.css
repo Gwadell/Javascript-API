@@ -24,7 +24,7 @@ body {
     background-image: url("/img/header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom -180px;
+    background-position: center bottom -110px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow */
 }
 
@@ -44,7 +44,7 @@ body {
     background-image: url("/img/header.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center bottom -220px;
+    background-position: center bottom -110px;
 }
 
 header h1 {
@@ -63,9 +63,10 @@ h2 {
 
 /* Style the logo/image */
 header img {
-    max-width: 50px;
+    max-width: 190px;
     height: auto;
-    padding: 10px;
+    padding: 10px;   
+    margin-left: 50px; 
 }
 
 /* Style the navigation menu */
@@ -875,8 +876,13 @@ main {
 
 
 @media screen and (min-width: 750px) {
+    .startpage-header, .moviepage-header {
+        background-position: center bottom -220px;
+    }
+
+    
     header img {
-        max-width: 100px;
+        max-width: 200px;
     }
     header h1 {
         font-size: 36px;
